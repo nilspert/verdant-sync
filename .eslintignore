@@ -1,0 +1,17 @@
+node_modules/
+build/
+dist/
+coverage/
+android/
+ios/
+expo/
+*.log
+*.json
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+*.eot
+*.woff
+*.woff2

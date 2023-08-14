@@ -1,1 +1,1 @@
-"# verdant-sync" 
+"# verdant-sync"
