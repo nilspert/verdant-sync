@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { UserInfo } from "firebase/auth";
 
-const useAuthentication = () => {
-  const [user, setUser] = (useState < User) | (null > null);
+interface AuthProps {
+  user: UserInfo | null
+}
+
+const useAuthentication = (): AuthProps => {
+  const [user, setUser] = useState<UserInfo | null>(null);
   const auth = getAuth();
 
   useEffect(() => {
