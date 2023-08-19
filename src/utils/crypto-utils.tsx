@@ -7,7 +7,7 @@ const encryptionKeyIVHex = String(process.env.ENCRYPTION_SECRET_KEY_IV);
 const encryptionKeyIV = CryptoES.enc.Hex.parse(encryptionKeyIVHex);
 
 export function decryptData(encryptedData: string) {
-    const ciphertext = CryptoES.enc.Hex.parse(encryptedData)
+  const ciphertext = CryptoES.enc.Hex.parse(encryptedData);
   try {
     const decryptedBytes = CryptoES.AES.decrypt({ ciphertext }, encryptionKey, {
       iv: encryptionKeyIV,
@@ -20,6 +20,24 @@ export function decryptData(encryptedData: string) {
     }
   } catch (error) {
     console.error('Decryption Error:', error);
+    return null;
+  }
+}
+
+export function encryptData(data: string) {
+  const plaintext = CryptoES.enc.Utf8.parse(data);
+  try {
+    const encryptedBytes = CryptoES.AES.encrypt(plaintext, encryptionKey, {
+      iv: encryptionKeyIV,
+    });
+    try {
+      return encryptedBytes.ciphertext?.toString().toUpperCase();
+    } catch (toStringError) {
+      console.error('Encryption to String Error:', toStringError);
+      return null;
+    }
+  } catch (error) {
+    console.error('Encryption Error:', error);
     return null;
   }
 }

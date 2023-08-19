@@ -2,6 +2,7 @@
 import { StyleSheet } from 'react-native';
 
 const defaultStyles = StyleSheet.create({
+  // Screen related default styles
   container: {
     flex: 1,
     backgroundColor: '#ffffff',
@@ -10,27 +11,30 @@ const defaultStyles = StyleSheet.create({
     paddingHorizontal: 20,
   },
 
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#00C853', // Green
+  contentContainer: {
+    flexGrow: 0,
+    backgroundColor: '#ffffff',
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    paddingVertical: 20,
     marginBottom: 20,
   },
 
-  buttons: {
+  screenContainer: {
+    paddingHorizontal: 10,
+    paddingVertical: 20,
+  },
+
+  subScreenContainer: {
+    paddingHorizontal: 10,
+  },
+
+  // Form related default styles
+  form: {
     width: '100%',
-    marginTop: 10,
-  },
-
-  button: {
-    marginVertical: 10,
-    backgroundColor: '#00C853', // Green
-  },
-
-  outlinedButton: {
-    marginVertical: 10,
-    borderColor: '#1A237E', // Deep Blue
-    borderWidth: 1,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   input: {
@@ -46,19 +50,6 @@ const defaultStyles = StyleSheet.create({
     color: 'red',
     fontSize: 14,
     marginBottom: 10,
-  },
-
-  subtitle: {
-    fontSize: 16,
-    marginBottom: 20,
-    color: '#666', // Medium gray text color
-  },
-
-  form: {
-    width: '100%',
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 });
 
