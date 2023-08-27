@@ -5,7 +5,6 @@ This is a simple React Native app demonstrating how to monitor and irrigate plan
 ## Features
 
 - Sign up / sign in with email and password
-- Sign in anonymously
 
 ## Getting Started
 
