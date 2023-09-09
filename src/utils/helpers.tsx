@@ -16,3 +16,18 @@ export const formatEpochTime = (epochTime: string) => {
 
   return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
 };
+
+export const calculatePercentage = (valueStr: string): string => {
+  // Parse the input string to a number
+  const value = parseFloat(valueStr);
+
+  // Check if the value is within the valid range (0 - 1024)
+  if (isNaN(value) || value < 0 || value > 1024) {
+    throw new Error('Input value must be a number between 0 and 1024');
+  }
+
+  // Calculate the percentage
+  const percentage = ((value / 1024) * 100).toFixed(2);
+
+  return `${percentage} %`;
+}

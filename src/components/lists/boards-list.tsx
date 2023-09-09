@@ -6,6 +6,7 @@ import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
 import InfoMessage from '../common/info-message';
 import Separator from '../common/separator';
 import defaultStyles from '../../assets/themes/default-styles';
+import { calculatePercentage } from '../../utils/helpers';
 
 type BoardsListProps = {
   filteredBoardsData: { [key: string]: Board };
@@ -53,7 +54,7 @@ const BoardsList: React.FC<BoardsListProps> = ({
               <View style={styles.iconListItem}>
                 <Icon name="cup-water" size={24} />
                 <View>
-                  <Text>70%</Text>
+                  <DecryptedText formatter={calculatePercentage} encryptedHex={item.soil_moisture || ''} />
                 </View>
               </View>
             </View>
