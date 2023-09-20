@@ -30,4 +30,12 @@ export const calculatePercentage = (valueStr: string): string => {
   const percentage = ((value / 1024) * 100).toFixed(2);
 
   return `${percentage} %`;
-}
+};
+
+export const addPercentage = (valueStr: string): string => {
+  return `${valueStr} %`;
+};
+
+export const addHpa = (valueStr: string): string => {
+  return `${valueStr} hPa`;
+};

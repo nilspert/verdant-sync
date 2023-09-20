@@ -7,6 +7,8 @@ export interface Board {
   ssid: string;
   temperature: string;
   soil_moisture: string;
+  air_pressure: string;
+  humidity: string;
   macAddress: string;
 }
 

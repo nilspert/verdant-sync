@@ -7,6 +7,7 @@ import InfoMessage from '../common/info-message';
 import Separator from '../common/separator';
 import defaultStyles from '../../assets/themes/default-styles';
 import { calculatePercentage } from '../../utils/helpers';
+import { theme } from '../../assets/themes/theme';
 
 type BoardsListProps = {
   filteredBoardsData: { [key: string]: Board };
@@ -38,23 +39,30 @@ const BoardsList: React.FC<BoardsListProps> = ({
             <DecryptedText encryptedHex={item.ssid || ''} />
             <View style={styles.iconList}>
               <View style={styles.iconListItem}>
-                <Icon name="temperature-celsius" size={24} />
                 <View>
-                  <DecryptedText encryptedHex={item.temperature || ''} />
+                  <DecryptedText
+                    style={styles.iconListItemValue}
+                    encryptedHex={item.temperature || ''}
+                  />
                 </View>
+                <Icon name="temperature-celsius" size={24} />
               </View>
               <Separator mode="vertical" />
               <View style={styles.iconListItem}>
                 <Icon name="weather-sunny" size={24} />
                 <View>
-                  <Text>High</Text>
+                  <Text style={styles.iconListItemValue}>High</Text>
                 </View>
               </View>
               <Separator mode="vertical" />
               <View style={styles.iconListItem}>
                 <Icon name="cup-water" size={24} />
                 <View>
-                  <DecryptedText formatter={calculatePercentage} encryptedHex={item.soil_moisture || ''} />
+                  <DecryptedText
+                    style={styles.iconListItemValue}
+                    formatter={calculatePercentage}
+                    encryptedHex={item.soil_moisture || ''}
+                  />
                 </View>
               </View>
             </View>
@@ -86,6 +94,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     gap: 10,
+  },
+  iconListItemValue: {
+    fontSize: 18,
+    color: theme.colors.accent,
   },
 });
 
