@@ -3,19 +3,19 @@ import { BottomTabHeaderProps, createBottomTabNavigator } from '@react-navigatio
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from '../screens/home-screen';
-import EventsScreen from '../screens/events-screen';
 import SettingsScreen from '../screens/settings-screen';
 import UserSettingsScreen from '../screens/user-settings-screen';
 import AuthorizedDevicesScreen from '../screens/authorized-devices-screen';
-import BoardInfo from '../screens/board-info-screen';
 import CustomNavigationBar from '../components/navigation/custom-navigation-bar';
 import { theme } from '../assets/themes/theme';
 import { StyleSheet } from 'react-native';
 import TabBarIcon, { TabBarIconProps } from '../components/navigation/tab-bar-icon';
+import NotificationsScreen from '../screens/notifications-screen';
+import BoardViewSelectorScreen from '../screens/board-view-selector-sreen';
 
 type RootTabParamList = {
   Home: undefined;
-  Events: undefined;
+  Notifications: undefined;
   Settings: undefined;
 };
 
@@ -46,7 +46,7 @@ const AppNavigator: React.FC = () => {
           header: (props) => RenderNavigationBar(props),
           tabBarStyle: { backgroundColor: theme.colors.primary },
           tabBarActiveTintColor: '#F7F7F7',
-          tabBarInactiveTintColor: '#F7F7F7',
+          tabBarInactiveTintColor: '#CCCCCC',
         }}
       >
         <Tab.Screen
@@ -59,10 +59,10 @@ const AppNavigator: React.FC = () => {
           }}
         />
         <Tab.Screen
-          name="Events"
-          component={EventsScreen}
+          name="Notifications"
+          component={NotificationsScreen}
           options={{
-            title: 'Events',
+            title: 'Notifications',
             tabBarIcon: ({ color, size, focused }) =>
               getTabBarIcon({ color, size, focused, iconName: 'bell-badge' }),
           }}
@@ -89,7 +89,11 @@ const HomeStackScreen: React.FC = () => {
       }}
     >
       <Stack.Screen options={{ headerShown: false }} name="HomeLanding" component={HomeScreen} />
-      <Stack.Screen name="BoardInfo" options={{ title: 'Board Info' }} component={BoardInfo} />
+      <Stack.Screen
+        name="BoardInfo"
+        options={{ headerShown: false }}
+        component={BoardViewSelectorScreen}
+      />
     </Stack.Navigator>
   );
 };
@@ -108,12 +112,12 @@ const SettingsStackScreen: React.FC = () => {
       />
       <Stack.Screen
         name="UserSettings"
-        options={{ title: 'User settings' }}
+        options={{ title: 'User settings', headerMode: 'float' }}
         component={UserSettingsScreen}
       />
       <Stack.Screen
         name="AuthorizedDevices"
-        options={{ title: 'Authorized devices' }}
+        options={{ title: 'Authorized devices', headerMode: 'float' }}
         component={AuthorizedDevicesScreen}
       />
     </Stack.Navigator>

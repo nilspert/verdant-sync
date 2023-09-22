@@ -5,13 +5,17 @@ import defaultStyles from '../../assets/themes/default-styles';
 import InfoMessage from '../common/info-message';
 import Separator from '../common/separator';
 import useEvents from '../../hooks/use-events';
-import { Event, Severity } from '../../types/types';
+import { Board, Event, Severity } from '../../types/types';
 import EventItem from '../events/event-item';
 import EventListHeader from '../events/event-list-header';
 import ListFooter from './list-footer';
 
+interface EventsListProps {
+  filteredBoard: Board;
+}
+
 const windowHeight = Dimensions.get('window').height;
-const eventListHeaderHeight = 280;
+const eventListHeaderHeight = 330;
 const flatListHeight = windowHeight - eventListHeaderHeight;
 
 const RenderSeparator = () => <Separator mode="horizontal" />;
@@ -24,7 +28,8 @@ const RenderListFooter = (loading: boolean, showEndReached: boolean) => {
   return <ListFooter loading={loading} showEndReached={showEndReached} />;
 };
 
-const EventsList: React.FC = () => {
+const EventsList: React.FC<EventsListProps> = ({ filteredBoard }) => {
+  console.log('TODO: filter events based on this', filteredBoard);
   const [onEndReachedCalled, setOnEndReachedCalled] = React.useState(false);
   const [filterSeverity, setFilterSeverity] = React.useState<Severity>('INFO' as Severity);
   const { eventsData, loadingEventsData, handleLoadMore, selectedDate, handleDateNavigation } =

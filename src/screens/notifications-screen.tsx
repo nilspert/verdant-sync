@@ -3,20 +3,20 @@ import React from 'react';
 import { SafeAreaView, View } from 'react-native';
 import styles from '../assets/themes/default-styles';
 import { RootStackParamList } from '../types/types';
-import EventsList from '../components/lists/events-list';
+import { Text } from 'react-native-paper';
 
-type EventsScreenProps = {
+type NotificationsScreenProps = {
   navigation: StackNavigationProp<RootStackParamList, 'Events'>;
 };
 
-const EventsScreen: React.FC<EventsScreenProps> = () => {
+const NotificationsScreen: React.FC<NotificationsScreenProps> = () => {
   return (
     <SafeAreaView>
       <View style={styles.screenContainer}>
-        <EventsList />
+        <Text>Notifications</Text>
       </View>
     </SafeAreaView>
   );
 };
 
-export default EventsScreen;
+export default NotificationsScreen;

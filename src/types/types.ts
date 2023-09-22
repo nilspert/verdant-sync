@@ -10,6 +10,7 @@ export interface Board {
   air_pressure: string;
   humidity: string;
   macAddress: string;
+  luminosity: string;
 }
 
 export interface Device {

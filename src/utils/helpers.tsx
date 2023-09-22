@@ -39,3 +39,33 @@ export const addPercentage = (valueStr: string): string => {
 export const addHpa = (valueStr: string): string => {
   return `${valueStr} hPa`;
 };
+
+export const getBrightness = (valueStr: string): string => {
+  const analogValue = parseInt(valueStr, 10);
+  if (analogValue >= 900) {
+    return 'Very Bright';
+  } else if (analogValue >= 700) {
+    return 'Bright';
+  } else if (analogValue >= 500) {
+    return 'Moderate';
+  } else if (analogValue >= 300) {
+    return 'Dim';
+  } else {
+    return 'Very Dim';
+  }
+};
+
+export const getSoilMoisture = (valueStr: string): string => {
+  const analogValue = parseInt(valueStr, 10);
+  if (analogValue >= 900) {
+    return 'Very Dry';
+  } else if (analogValue >= 700) {
+    return 'Dry';
+  } else if (analogValue >= 500) {
+    return 'Moist';
+  } else if (analogValue >= 300) {
+    return 'Wet';
+  } else {
+    return 'Very Wet';
+  }
+};
