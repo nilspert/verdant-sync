@@ -2,6 +2,7 @@ import React from 'react';
 import { NODE_PATHS, QueryOptions, fetchFromDatabase } from '../services/firebase-utils';
 import useAuthentication from './use-authentication';
 import { Event, Severity } from '../types/types';
+import { decryptData } from '../utils/crypto-utils';
 
 const EVENTS_PER_LOAD = 20;
 
@@ -17,9 +18,10 @@ const defaultLoadingEventsData = {
   ERROR: true,
 };
 
-const useEvents = (severityFilter: string | null) => {
+const useEvents = (severityFilter: string | null, boardId: string | null) => {
   const { settings } = useAuthentication();
   const [selectedDate, setSelectedDate] = React.useState<Date>(new Date());
+  const decryptedBoardId = decryptData(String(boardId));
 
   const [eventsData, setEventsData] = React.useState<{
     [severity: string]: { [key: string]: Event };
@@ -40,7 +42,7 @@ const useEvents = (severityFilter: string | null) => {
         .toString()
         .padStart(2, '0')}/${selectedDate.getDate().toString().padStart(2, '0')}`;
 
-      const pathWithFilter = `${NODE_PATHS.EVENTS}/${severity}/${formattedDate}/${settings.ssid}`;
+      const pathWithFilter = `${NODE_PATHS.EVENTS}/${severity}/${formattedDate}/${settings.ssid}/${decryptedBoardId}`;
 
       const queryOptions: QueryOptions = {
         orderByChildValue: 'timestamp',

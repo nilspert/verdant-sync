@@ -29,11 +29,10 @@ const RenderListFooter = (loading: boolean, showEndReached: boolean) => {
 };
 
 const EventsList: React.FC<EventsListProps> = ({ filteredBoard }) => {
-  console.log('TODO: filter events based on this', filteredBoard);
   const [onEndReachedCalled, setOnEndReachedCalled] = React.useState(false);
   const [filterSeverity, setFilterSeverity] = React.useState<Severity>('INFO' as Severity);
   const { eventsData, loadingEventsData, handleLoadMore, selectedDate, handleDateNavigation } =
-    useEvents(filterSeverity);
+    useEvents(filterSeverity, filteredBoard.macAddress);
 
   const filteredEvents = Object.values(eventsData[filterSeverity]);
 
