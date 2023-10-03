@@ -11,6 +11,7 @@ export interface Board {
   humidity: string;
   macAddress: string;
   luminosity: string;
+  water_tank_level: string;
 }
 
 export interface Device {

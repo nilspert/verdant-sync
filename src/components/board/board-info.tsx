@@ -5,7 +5,7 @@ import DecryptedText from '../../components/common/decrypted-text';
 import Separator from '../../components/common/separator';
 import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
 import { theme } from '../../assets/themes/theme';
-import { addHpa, addPercentage, getBrightness, getSoilMoisture } from '../../utils/helpers';
+import { addHpa, addPercentage, getBrightness, getSoilMoisture, getWaterTankLevel } from '../../utils/helpers';
 
 const windowHeight = Dimensions.get('window').height;
 const eventListHeaderHeight = 240;
@@ -26,7 +26,11 @@ const BoardInfo: React.FC<BoardInfoProps> = ({ filteredBoard }) => {
         <View style={styles.column}>
           <View style={styles.itemContainer}>
             <View style={styles.iconContainer}>
-              <Text style={styles.iconItemValue}>60 %</Text>
+              <DecryptedText
+                style={styles.iconItemValue}
+                formatter={getWaterTankLevel}
+                encryptedHex={String(filteredBoard?.water_tank_level)}
+              />
             </View>
             {RenderSeparator()}
             <Text style={styles.itemLabel}>Water tank level</Text>

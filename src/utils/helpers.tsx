@@ -17,19 +17,25 @@ export const formatEpochTime = (epochTime: string) => {
   return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
 };
 
-export const calculatePercentage = (valueStr: string): string => {
-  // Parse the input string to a number
-  const value = parseFloat(valueStr);
+export const getWaterTankLevel = (distanceStr: string): string => {
+  const distance = parseFloat(distanceStr);
 
-  // Check if the value is within the valid range (0 - 1024)
-  if (isNaN(value) || value < 0 || value > 1024) {
-    throw new Error('Input value must be a number between 0 and 1024');
+  const sensorMinDistance = 2.6;
+  const sensorMaxDistance = 12.5;
+
+  let percentage = 100;
+
+  if (!isNaN(distance)) {
+    if (distance >= sensorMaxDistance) {
+      percentage = 0;
+    } else if (distance <= sensorMinDistance) {
+      percentage = 100;
+    } else {
+      percentage = ((sensorMaxDistance - distance) / (sensorMaxDistance - sensorMinDistance)) * 100;
+    }
   }
 
-  // Calculate the percentage
-  const percentage = ((value / 1024) * 100).toFixed(2);
-
-  return `${percentage} %`;
+  return `${percentage.toFixed(0)} %`;
 };
 
 export const addPercentage = (valueStr: string): string => {
