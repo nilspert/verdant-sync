@@ -12,6 +12,7 @@ export interface Board {
   macAddress: string;
   luminosity: string;
   water_tank_level: string;
+  latest_watering_time: string;
 }
 
 export interface Device {

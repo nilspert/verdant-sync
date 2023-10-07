@@ -5,7 +5,13 @@ import DecryptedText from '../../components/common/decrypted-text';
 import Separator from '../../components/common/separator';
 import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
 import { theme } from '../../assets/themes/theme';
-import { addHpa, addPercentage, getBrightness, getSoilMoisture, getWaterTankLevel } from '../../utils/helpers';
+import {
+  addHpa,
+  addPercentage,
+  getBrightness,
+  getSoilMoisture,
+  getWaterTankLevel,
+} from '../../utils/helpers';
 
 const windowHeight = Dimensions.get('window').height;
 const eventListHeaderHeight = 240;

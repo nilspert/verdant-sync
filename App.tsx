@@ -6,11 +6,9 @@ import { theme } from './src/assets/themes/theme';
 
 const App: React.FC = () => {
   return (
-    <React.StrictMode>
-      <PaperProvider theme={theme}>
-        <RootNavigation />
-      </PaperProvider>
-    </React.StrictMode>
+    <PaperProvider theme={theme}>
+      <RootNavigation />
+    </PaperProvider>
   );
 };
 

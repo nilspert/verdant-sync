@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "verdant-sync",
+    "name": "VerdantSync",
     "slug": "verdant-sync",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -19,10 +19,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.verdantsync.app"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "7f24857a-012c-443b-9b8e-58621e995928"
+      }
     }
   }
 }

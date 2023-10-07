@@ -22,6 +22,25 @@ This is a simple React Native app demonstrating how to monitor and irrigate plan
 - React Navigation
 - React Native Paper
 
+## Build
+
+Build is made with Expo Application Services (EAS)
+
+Login to your expo account with following command `eas login`
+
+### Environment variables
+Environment variables are stored to Expo Application Services (EAS) as secrets for builds.
+
+1. Import secrets from .env.development
+`eas secret:push --scope project --env-file .env.development`
+
+2. You can check secrets with
+`eas secret:list`
+
+### Android build
+
+Start build with `eas build --platform android --profile production`
+
 ## License
 
 This project is open-source and licensed under the [MIT License](LICENSE).

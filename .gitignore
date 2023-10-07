@@ -47,3 +47,5 @@ yarn-error.*
 .env*.test
 .env*.production
 
+# Android Studio
+.idea
