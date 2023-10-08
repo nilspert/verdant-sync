@@ -18,10 +18,9 @@
 1. Clone this repository to your local machine.
 2. Install dependencies using `npm install` or `yarn install`.
 3. Configure your Firebase project and obtain the necessary details.
-4. Duplicate `.env.example` as `.env.development`.
-5. Fill in the Firebase configuration details obtained from Firebase.
-6. Update `.env.development` with your Firebase configuration.
-7. Start the app with `npm start` or `yarn start`.
+4. Copy `.env.example` as `.env.development` and fill in the Firebase configuration details
+5. Update `.env.development` with your Firebase configuration.
+6. Start the app with `npm start` or `yarn start`.
 
 ## Dependencies
 
