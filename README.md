@@ -25,11 +25,12 @@
 
 ## Dependencies
 
-- React Native
-- Firebase
-- React Navigation
-- React Native Paper
-- React Native AES Crypto
+- [React Native](https://reactnative.dev/)
+- [Firebase](https://firebase.google.com/)
+- [React Navigation](https://reactnavigation.org/)
+- [React Native Paper](https://callstack.github.io/react-native-paper/)
+- [React Native AES Crypto](https://www.npmjs.com/package/react-native-aes-crypto)
+- [React Hook Form](https://react-hook-form.com/)
 
 ## Building the App
 
