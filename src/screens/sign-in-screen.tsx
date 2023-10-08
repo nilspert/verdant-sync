@@ -13,6 +13,7 @@ const SignInScreen: React.FC<SignInScreenProps> = () => {
   const handleEmailPasswordSignIn = async ({ email, password }: FormData) => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
+      Toast({ message: `Logged in as ${email}` });
     } catch (apiError) {
       const errorObject = apiError as AuthError; // Cast to AuthError type
       let errorMessage = 'An error occurred while signing in.';

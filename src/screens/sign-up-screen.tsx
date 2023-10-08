@@ -15,6 +15,7 @@ const SignUpScreen: React.FC<SignUpScreenProps> = () => {
     try {
       const { email, password } = formData;
       await createUserWithEmailAndPassword(auth, email, password);
+      Toast({ message: 'User created successfully' });
     } catch (apiError) {
       const errorObject = apiError as AuthError; // Cast to AuthError type
       let errorMessage = 'An error occurred while signing up.';
