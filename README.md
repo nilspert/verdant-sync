@@ -40,7 +40,8 @@ Environment variables are stored to Expo Application Services (EAS) as secrets f
 
 ### Android build
 
-Start build with `eas build --platform android --profile production`
+Start build with `yarn build`
+This creates an APK to Expo Application Services under `Builds` section.
 
 ## License
 
