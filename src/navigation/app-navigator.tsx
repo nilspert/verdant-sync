@@ -1,7 +1,13 @@
 import React from 'react';
 import { BottomTabHeaderProps, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import {
+  StackHeaderProps,
+  createStackNavigator,
+  TransitionSpecs,
+  HeaderStyleInterpolators,
+  CardStyleInterpolators,
+} from '@react-navigation/stack';
 import HomeScreen from '../screens/home-screen';
 import SettingsScreen from '../screens/settings-screen';
 import UserSettingsScreen from '../screens/user-settings-screen';
@@ -10,17 +16,17 @@ import CustomNavigationBar from '../components/navigation/custom-navigation-bar'
 import { theme } from '../assets/themes/theme';
 import { StyleSheet } from 'react-native';
 import TabBarIcon, { TabBarIconProps } from '../components/navigation/tab-bar-icon';
-import NotificationsScreen from '../screens/notifications-screen';
 import BoardViewSelectorScreen from '../screens/board-view-selector-sreen';
+import TabBarLabel, { TabBarLabelProps } from '../components/navigation/tab-bar-label';
 
 type RootTabParamList = {
-  Home: undefined;
+  Devices: undefined;
   Notifications: undefined;
   Settings: undefined;
 };
 
 type RootStackParamList = {
-  HomeLanding: undefined;
+  DevicesLanding: undefined;
   BoardInfo: undefined;
   SettingsLanding: undefined;
   UserSettings: undefined;
@@ -30,7 +36,13 @@ type RootStackParamList = {
 const Tab = createBottomTabNavigator<RootTabParamList>();
 const Stack = createStackNavigator<RootStackParamList>();
 
-const RenderNavigationBar = (props: BottomTabHeaderProps) => {
+const customTransition = {
+  ...TransitionSpecs.TransitionIOSSpec,
+  headerStyleInterpolator: HeaderStyleInterpolators.forNoAnimation,
+  cardStyleInterpolator: CardStyleInterpolators.forNoAnimation,
+};
+
+const RenderNavigationBar = (props: StackHeaderProps | BottomTabHeaderProps) => {
   return <CustomNavigationBar {...props} />;
 };
 
@@ -38,40 +50,40 @@ const getTabBarIcon = ({ color, size, focused, iconName }: TabBarIconProps) => {
   return <TabBarIcon iconName={iconName} color={color} size={size} focused={focused} />;
 };
 
+const getTabBarLabel = ({ color, focused, label }: TabBarLabelProps) => {
+  return <TabBarLabel color={color} focused={focused} label={label} />;
+};
+
 const AppNavigator: React.FC = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        screenOptions={{
-          header: (props) => RenderNavigationBar(props),
+        screenOptions={({ route }) => ({
+          unmountOnBlur: true,
+          gestureEnabled: true,
+          gestureDirection: 'horizontal',
+          cardStyle: { backgroundColor: '#EEEEEE' },
+          headerShown: false,
+          tabBarHideOnKeyboard: true,
           tabBarStyle: { backgroundColor: theme.colors.primary },
           tabBarActiveTintColor: '#F7F7F7',
           tabBarInactiveTintColor: '#CCCCCC',
-        }}
+          tabBarLabel: ({ color, focused }) =>
+            getTabBarLabel({ color, focused, label: route.name }),
+        })}
       >
         <Tab.Screen
-          name="Home"
+          name="Devices"
           component={HomeStackScreen}
           options={{
-            title: 'Devices',
             tabBarIcon: ({ color, size, focused }) =>
               getTabBarIcon({ color, size, focused, iconName: 'sprout' }),
-          }}
-        />
-        <Tab.Screen
-          name="Notifications"
-          component={NotificationsScreen}
-          options={{
-            title: 'Notifications',
-            tabBarIcon: ({ color, size, focused }) =>
-              getTabBarIcon({ color, size, focused, iconName: 'bell-badge' }),
           }}
         />
         <Tab.Screen
           name="Settings"
           component={SettingsStackScreen}
           options={{
-            title: 'Settings',
             tabBarIcon: ({ color, size, focused }) =>
               getTabBarIcon({ color, size, focused, iconName: 'cog' }),
           }}
@@ -84,14 +96,23 @@ const AppNavigator: React.FC = () => {
 const HomeStackScreen: React.FC = () => {
   return (
     <Stack.Navigator
+      initialRouteName="DevicesLanding"
       screenOptions={{
         headerStyle: styles.stackScreenHeader,
+        headerTintColor: '#ffffff',
+        gestureEnabled: true,
+        gestureDirection: 'horizontal',
+        cardStyle: { backgroundColor: '#EEEEEE' },
       }}
     >
-      <Stack.Screen options={{ headerShown: false }} name="HomeLanding" component={HomeScreen} />
+      <Stack.Screen
+        options={{ header: (props) => RenderNavigationBar(props) }}
+        name="DevicesLanding"
+        component={HomeScreen}
+      />
       <Stack.Screen
         name="BoardInfo"
-        options={{ headerShown: false }}
+        options={{ title: 'Board info', ...customTransition }}
         component={BoardViewSelectorScreen}
       />
     </Stack.Navigator>
@@ -101,23 +122,38 @@ const HomeStackScreen: React.FC = () => {
 const SettingsStackScreen: React.FC = () => {
   return (
     <Stack.Navigator
+      initialRouteName="SettingsLanding"
       screenOptions={{
         headerStyle: styles.stackScreenHeader,
+        gestureEnabled: true,
+        gestureDirection: 'horizontal',
+        cardStyle: { backgroundColor: '#EEEEEE' },
       }}
     >
       <Stack.Screen
-        options={{ headerShown: false }}
+        options={{ header: (props) => RenderNavigationBar(props) }}
         name="SettingsLanding"
         component={SettingsScreen}
       />
       <Stack.Screen
         name="UserSettings"
-        options={{ title: 'User settings', headerMode: 'float' }}
+        options={{
+          title: 'User settings',
+          headerStyle: styles.stackScreenHeader,
+          headerTintColor: '#ffffff',
+          ...customTransition,
+        }}
         component={UserSettingsScreen}
       />
       <Stack.Screen
         name="AuthorizedDevices"
-        options={{ title: 'Authorized devices', headerMode: 'float' }}
+        options={{
+          title: 'Authorized devices',
+          headerStyle: styles.stackScreenHeader,
+          headerTitleStyle: styles.headerTitle,
+          headerTintColor: '#ffffff',
+          ...customTransition,
+        }}
         component={AuthorizedDevicesScreen}
       />
     </Stack.Navigator>
@@ -125,7 +161,8 @@ const SettingsStackScreen: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  stackScreenHeader: { backgroundColor: '#eee' },
+  stackScreenHeader: { backgroundColor: theme.colors.primary },
+  headerTitle: { color: '#F7F7F7' },
 });
 
 export default AppNavigator;

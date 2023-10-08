@@ -8,8 +8,8 @@ export interface TabBarIconProps {
   size: number;
 }
 
-const tabBarIcon = ({ iconName, focused, color, size }: TabBarIconProps) => {
+const TabBarIcon = ({ iconName, focused, color, size }: TabBarIconProps) => {
   return <Icon name={focused ? iconName : `${iconName}-outline`} color={color} size={size} />;
 };
 
-export default tabBarIcon;
+export default TabBarIcon;

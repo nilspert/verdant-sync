@@ -6,9 +6,9 @@ import defaultStyles from '../assets/themes/default-styles';
 import ScreenTitle from '../components/common/screen-title';
 import { Button } from 'react-native-paper';
 import SettingsList from '../components/lists/settings-list';
-import { getAuth, signOut } from 'firebase/auth';
-
-const auth = getAuth();
+import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
+import { useModal } from '../hooks/use-modal';
+import SignOutModal from '../components/common/sign-out-modal';
 
 type SettingsScreenProps = {
   navigation: StackNavigationProp<RootStackParamList, 'Settings'>;
@@ -34,6 +34,8 @@ const SETTINGS: SettingsListItem[] = [
 ];
 
 const SettingsScreen: React.FC<SettingsScreenProps> = ({ navigation }) => {
+  const { isVisible, showModal, hideModal } = useModal();
+
   const handleOnNavigate = (navPath: string) => {
     navigation.navigate(navPath);
   };
@@ -46,9 +48,11 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({ navigation }) => {
       />
       <SettingsList settingsListData={SETTINGS} onNavigate={handleOnNavigate} />
 
-      <Button mode="contained" onPress={() => signOut(auth)}>
-        Sign Out
+      <Button mode="contained" onPress={showModal}>
+        Sign Out <Icon color="#ffffff" size={14} name="exit-to-app" />
       </Button>
+
+      <SignOutModal isVisible={isVisible} hideModal={hideModal} />
     </SafeAreaView>
   );
 };

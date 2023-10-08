@@ -29,13 +29,14 @@ Build is made with Expo Application Services (EAS)
 Login to your expo account with following command `eas login`
 
 ### Environment variables
+
 Environment variables are stored to Expo Application Services (EAS) as secrets for builds.
 
 1. Import secrets from .env.development
-`eas secret:push --scope project --env-file .env.development`
+   `eas secret:push --scope project --env-file .env.development`
 
 2. You can check secrets with
-`eas secret:list`
+   `eas secret:list`
 
 ### Android build
 

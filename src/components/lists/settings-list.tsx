@@ -1,7 +1,6 @@
 import React from 'react';
 import { FlatList, Text, TouchableWithoutFeedback, View, StyleSheet } from 'react-native';
 import defaultStyles from '../../assets/themes/default-styles';
-import InfoMessage from '../common/info-message';
 import { SettingsListItem } from '../../screens/settings-screen';
 import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
 import Separator from '../common/separator';
@@ -26,9 +25,6 @@ const SettingsList: React.FC<SettingsListProps> = ({
       data={Object.values(settingsListData)}
       keyExtractor={(item) => item.id}
       ItemSeparatorComponent={RenderSeparator}
-      ListEmptyComponent={
-        <InfoMessage message="No events found with current settings. Please update your settings." />
-      }
       renderItem={({ item }) => (
         <TouchableWithoutFeedback onPress={() => onNavigate(item.navPath)}>
           <View style={styles.settingsListItem}>

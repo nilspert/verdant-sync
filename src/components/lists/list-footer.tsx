@@ -12,12 +12,14 @@ const ListFooter: React.FC<InfoMessageProps> = ({ loading, showEndReached }) => 
   return loading ? (
     <LoadingSpinner />
   ) : (
-    showEndReached && (
-      <View>
-        <Separator mode="horizontal" />
-        <Text style={styles.endReached}>You have reached the end, my beautiful friend</Text>
-      </View>
-    )
+    <View>
+      {showEndReached && (
+        <View>
+          <Separator mode="horizontal" />
+          <Text style={styles.endReached}>You have reached the end, my beautiful friend</Text>
+        </View>
+      )}
+    </View>
   );
 };
 

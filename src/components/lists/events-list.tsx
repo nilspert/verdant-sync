@@ -15,7 +15,7 @@ interface EventsListProps {
 }
 
 const windowHeight = Dimensions.get('window').height;
-const eventListHeaderHeight = 330;
+const eventListHeaderHeight = 190;
 const flatListHeight = windowHeight - eventListHeaderHeight;
 
 const RenderSeparator = () => <Separator mode="horizontal" />;
@@ -51,15 +51,6 @@ const EventsList: React.FC<EventsListProps> = ({ filteredBoard }) => {
 
   return (
     <View>
-      <View>
-        <EventListHeader
-          filterSeverity={filterSeverity}
-          setFilterSeverity={setFilterSeverity}
-          eventsLength={filteredEvents.length}
-          selectedDate={selectedDate}
-          handleDateNavigation={handleDateNavigation}
-        />
-      </View>
       <GestureHandlerRootView>
         <FlatList
           nestedScrollEnabled
@@ -68,6 +59,15 @@ const EventsList: React.FC<EventsListProps> = ({ filteredBoard }) => {
             styles.container,
             filteredEvents.length > 3 && styles.flatList,
           ]}
+          ListHeaderComponent={
+            <EventListHeader
+              filterSeverity={filterSeverity}
+              setFilterSeverity={setFilterSeverity}
+              eventsLength={filteredEvents.length}
+              selectedDate={selectedDate}
+              handleDateNavigation={handleDateNavigation}
+            />
+          }
           contentContainerStyle={styles.contentContainer}
           data={filteredEvents}
           keyExtractor={(item) => item.messageId}
@@ -108,6 +108,7 @@ const styles = StyleSheet.create({
   },
   infoMessageContainer: {
     paddingTop: 10,
+    paddingHorizontal: 15,
   },
 });
 

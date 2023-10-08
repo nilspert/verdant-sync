@@ -5,7 +5,7 @@ import DecryptedText from '../common/decrypted-text';
 import InfoMessage from '../common/info-message';
 import Separator from '../common/separator';
 import defaultStyles from '../../assets/themes/default-styles';
-import { theme } from '../../assets/themes/theme';
+import { Text } from 'react-native-paper';
 
 const windowHeight = Dimensions.get('window').height;
 const eventListHeaderHeight = 220;
@@ -32,11 +32,20 @@ const BoardsList: React.FC<BoardsListProps> = ({
       keyExtractor={(item) => item.ip}
       ItemSeparatorComponent={RenderSeparator}
       ListEmptyComponent={
-        <InfoMessage message="No devices found with current settings. Please update your settings and approve any devices that have pending authorization." />
+        <View style={[defaultStyles.contentContainer, defaultStyles.highlightedLeftBorder]}>
+          <Text style={styles.infoLabel}>No devices found with current settings.</Text>
+          <InfoMessage message="Please update your user settings and approve any devices that have pending authorization." />
+        </View>
       }
       renderItem={({ item }) => (
         <TouchableWithoutFeedback onPress={() => onNavigate('BoardInfo', item.macAddress)}>
-          <View style={{ ...defaultStyles.contentContainer, ...styles.itemContainer }}>
+          <View
+            style={[
+              defaultStyles.contentContainer,
+              defaultStyles.highlightedLeftBorder,
+              styles.itemContainer,
+            ]}
+          >
             <DecryptedText style={styles.title} encryptedHex={item.name || ''} />
             <DecryptedText encryptedHex={item.ssid || ''} />
           </View>
@@ -52,11 +61,14 @@ const styles = StyleSheet.create({
   },
   itemContainer: {
     padding: 10,
-    borderLeftWidth: 6,
-    borderLeftColor: theme.colors.primary,
   },
   flatList: {
     height: flatListHeight,
+  },
+  infoLabel: {
+    paddingHorizontal: 5,
+    fontWeight: 'bold',
+    marginBottom: 10,
   },
 });
 

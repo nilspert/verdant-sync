@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { TextInput } from 'react-native-paper';
 import { SSID_REGEX } from '../../utils/regex';
@@ -41,7 +41,7 @@ const UserSettingsForm: React.FC<UserSettingsFormProps> = ({ settings, onSubmit 
   };
 
   return (
-    <View>
+    <View style={defaultStyles.contentContainer}>
       <Controller
         control={control}
         render={({ field: { onChange, value } }) => (
@@ -50,7 +50,7 @@ const UserSettingsForm: React.FC<UserSettingsFormProps> = ({ settings, onSubmit 
             value={value}
             onChangeText={(text) => onChange(text)}
             error={formState.errors.ssid ? true : false}
-            style={defaultStyles.input}
+            style={[defaultStyles.input, isEditMode && styles.editInput]}
             editable={isEditMode} // Editable when in edit mode
           />
         )}
@@ -72,7 +72,14 @@ const UserSettingsForm: React.FC<UserSettingsFormProps> = ({ settings, onSubmit 
 
       {isEditMode ? (
         <View>
-          <CustomButton mode="contained" label="Save" onPress={handleSubmit(onSubmit)} />
+          <CustomButton
+            mode="contained"
+            label="Save"
+            onPress={handleSubmit((data) => {
+              onSubmit(data);
+              toggleEditMode();
+            })}
+          />
           <CustomButton mode="outlined" label="Cancel" onPress={toggleEditMode} />
         </View>
       ) : (
@@ -81,5 +88,11 @@ const UserSettingsForm: React.FC<UserSettingsFormProps> = ({ settings, onSubmit 
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  editInput: {
+    backgroundColor: '#ffffff',
+  },
+});
 
 export default UserSettingsForm;

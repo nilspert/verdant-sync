@@ -20,14 +20,14 @@ const AuthorizedDevicesScreen: React.FC<AuthorizedDevicesScreenProps> = () => {
   }
 
   return (
-    <SafeAreaView style={styles.subScreenContainer}>
-      <InfoMessage message="View and manage devices that are linked to SSID specified in your settings." />
-      <View style={styles.contentContainer}>
-        {Object.keys(authorizedDevicesData).length === 0 && (
-          <InfoMessage message="No devices found with current settings. Please update your settings." />
-        )}
-        <DeviceList authorizedDevicesData={authorizedDevicesData} />
-      </View>
+    <SafeAreaView style={styles.screenContainer}>
+      <InfoMessage message="View and authorize devices that are linked to WiFi SSID specified in your settings." />
+      {Object.keys(authorizedDevicesData).length === 0 && (
+        <View style={styles.contentContainer}>
+          <InfoMessage message="No devices found with current user settings. Please update your settings." />
+        </View>
+      )}
+      <DeviceList authorizedDevicesData={authorizedDevicesData} />
     </SafeAreaView>
   );
 };
