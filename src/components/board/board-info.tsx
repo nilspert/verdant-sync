@@ -1,9 +1,6 @@
-import React from 'react';
-import { View, ScrollView, StyleSheet, Text, Dimensions } from 'react-native';
+import React, { ReactNode } from 'react';
+import { View, ScrollView, StyleSheet, Dimensions } from 'react-native';
 import { Board } from '../../types/types';
-import DecryptedText from '../../components/common/decrypted-text';
-import Separator from '../../components/common/separator';
-import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
 import { theme } from '../../assets/themes/theme';
 import {
   addHpa,
@@ -12,106 +9,65 @@ import {
   getSoilMoisture,
   getWaterTankLevel,
 } from '../../utils/helpers';
+import BoardInfoItem from './board-info-item';
 
 const windowHeight = Dimensions.get('window').height;
-const eventListHeaderHeight = 240;
+const eventListHeaderHeight = 190;
 const scrollViewHeight = windowHeight - eventListHeaderHeight;
 
-interface BoardInfoProps {
+interface Props {
   filteredBoard: Board;
 }
 
-const RenderSeparator = () => {
-  return <Separator mode="horizontal" />;
+interface RowProps {
+  children: ReactNode;
+}
+
+const RenderRow = ({ children }: RowProps) => {
+  return <View style={styles.row}>{children}</View>;
 };
 
-const BoardInfo: React.FC<BoardInfoProps> = ({ filteredBoard }) => {
+const BoardInfo: React.FC<Props> = ({ filteredBoard }) => {
   return (
     <ScrollView style={styles.scrollView}>
-      <View style={styles.row}>
-        <View style={styles.column}>
-          <View style={styles.itemContainer}>
-            <View style={styles.iconContainer}>
-              <DecryptedText
-                style={styles.iconItemValue}
-                formatter={getWaterTankLevel}
-                encryptedHex={String(filteredBoard?.water_tank_level)}
-              />
-            </View>
-            {RenderSeparator()}
-            <Text style={styles.itemLabel}>Water tank level</Text>
-          </View>
-        </View>
-        <View style={styles.column}>
-          <View style={styles.itemContainer}>
-            <View style={styles.iconContainer}>
-              <DecryptedText
-                style={styles.iconItemValue}
-                formatter={getSoilMoisture}
-                encryptedHex={String(filteredBoard?.soil_moisture)}
-              />
-            </View>
-            {RenderSeparator()}
-            <Text style={styles.itemLabel}>Soil moisture</Text>
-          </View>
-        </View>
-      </View>
-      <View style={styles.row}>
-        <View style={styles.column}>
-          <View style={styles.itemContainer}>
-            <DecryptedText
-              style={styles.iconItemValue}
-              formatter={getBrightness}
-              encryptedHex={String(filteredBoard?.luminosity)}
-            />
-            {RenderSeparator()}
-            <Text style={styles.itemLabel}>Luminosity</Text>
-          </View>
-        </View>
-      </View>
-      <View style={styles.row}>
-        <View style={styles.column}>
-          <View style={styles.itemContainer}>
-            <View style={styles.iconContainer}>
-              <DecryptedText
-                style={styles.iconItemValue}
-                encryptedHex={String(filteredBoard?.temperature)}
-              />
-              <Icon name={'temperature-celsius'} color={theme.colors.primary} size={36} />
-            </View>
-            {RenderSeparator()}
-            <Text style={styles.itemLabel}>Air temperature</Text>
-          </View>
-        </View>
-        <View style={styles.column}>
-          <View style={styles.itemContainer}>
-            <View style={styles.iconContainer}>
-              <DecryptedText
-                style={styles.iconItemValue}
-                formatter={addPercentage}
-                encryptedHex={String(filteredBoard?.humidity)}
-              />
-            </View>
-            {RenderSeparator()}
-            <Text style={styles.itemLabel}>Air humidity</Text>
-          </View>
-        </View>
-      </View>
-      <View style={styles.row}>
-        <View style={styles.column}>
-          <View style={styles.itemContainer}>
-            <View style={styles.iconContainer}>
-              <DecryptedText
-                style={styles.iconItemValue}
-                formatter={addHpa}
-                encryptedHex={String(filteredBoard?.air_pressure)}
-              />
-            </View>
-            {RenderSeparator()}
-            <Text style={styles.itemLabel}>Air pressure</Text>
-          </View>
-        </View>
-      </View>
+      <RenderRow>
+        <BoardInfoItem
+          boardProperty={String(filteredBoard?.water_tank_level)}
+          propertyLabel="Water tank level"
+          formatter={getWaterTankLevel}
+        />
+        <BoardInfoItem
+          boardProperty={String(filteredBoard?.soil_moisture)}
+          propertyLabel="Soil moisture"
+          formatter={getSoilMoisture}
+        />
+      </RenderRow>
+      <RenderRow>
+        <BoardInfoItem
+          boardProperty={String(filteredBoard?.luminosity)}
+          propertyLabel="Luminosity"
+          formatter={getBrightness}
+        />
+      </RenderRow>
+      <RenderRow>
+        <BoardInfoItem
+          boardProperty={String(filteredBoard?.temperature)}
+          propertyLabel="Air temperature"
+          iconName="temperature-celsius"
+        />
+        <BoardInfoItem
+          boardProperty={String(filteredBoard?.humidity)}
+          propertyLabel="Air humidity"
+          formatter={addPercentage}
+        />
+      </RenderRow>
+      <RenderRow>
+        <BoardInfoItem
+          boardProperty={String(filteredBoard?.air_pressure)}
+          propertyLabel="Air pressure"
+          formatter={addHpa}
+        />
+      </RenderRow>
     </ScrollView>
   );
 };
@@ -129,8 +85,8 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 8,
     borderWidth: 1,
-    borderColor: 'white',
-    backgroundColor: 'white',
+    borderColor: '#ffffff',
+    backgroundColor: '#ffffff',
     marginHorizontal: 8,
     borderRadius: 8,
   },

@@ -20,42 +20,45 @@ const EventListHeader: React.FC<EventListHeaderProps> = ({
   eventsLength,
   selectedDate,
   handleDateNavigation,
-}) => (
-  <View>
-    <View style={styles.dateNavigationContainer}>
-      <Button onPress={() => handleDateNavigation(-1)}>
-        <Icon name="arrow-back" size={24} color="black" />
-      </Button>
-      <Text>{selectedDate.toDateString()}</Text>
-      <Button onPress={() => handleDateNavigation(1)}>
-        <Icon name="arrow-forward" size={24} color="black" />
-      </Button>
-    </View>
-
-    <View style={styles.filterButtonsContainer}>
-      {Object.values(Severity).map((severity) => (
-        <Button
-          key={severity}
-          style={[filterSeverity === severity && styles.filterButtonActive]}
-          onPress={() => setFilterSeverity(severity as Severity)}
-        >
-          <Text
-            style={{
-              ...styles.filterButtonText,
-              ...(filterSeverity === severity ? styles.lightContent : styles.darkContent),
-            }}
-          >
-            {severity}
-          </Text>
+}) => {
+  const disableForward = selectedDate.getDate() >= new Date().getDate();
+  return (
+    <View>
+      <View style={styles.dateNavigationContainer}>
+        <Button onPress={() => handleDateNavigation(-1)}>
+          <Icon name="arrow-back" size={24} color="black" />
         </Button>
-      ))}
-      <View>
-        <Text>{eventsLength}</Text>
+        <Text>{selectedDate.toDateString()}</Text>
+        <Button disabled={disableForward} onPress={() => handleDateNavigation(1)}>
+          <Icon name="arrow-forward" size={24} color={disableForward ? '#ccc' : '#000'} />
+        </Button>
       </View>
+
+      <View style={styles.filterButtonsContainer}>
+        {Object.values(Severity).map((severity) => (
+          <Button
+            key={severity}
+            style={[filterSeverity === severity && styles.filterButtonActive]}
+            onPress={() => setFilterSeverity(severity as Severity)}
+          >
+            <Text
+              style={{
+                ...styles.filterButtonText,
+                ...(filterSeverity === severity ? styles.lightContent : styles.darkContent),
+              }}
+            >
+              {severity}
+            </Text>
+          </Button>
+        ))}
+        <View>
+          <Text>{eventsLength}</Text>
+        </View>
+      </View>
+      <Separator mode="horizontal" />
     </View>
-    <Separator mode="horizontal" />
-  </View>
-);
+  );
+};
 
 const styles = StyleSheet.create({
   filterButtonsContainer: {

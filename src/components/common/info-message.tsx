@@ -11,7 +11,7 @@ const InfoMessage: React.FC<InfoMessageProps> = ({ message }) => {
 
 const styles = StyleSheet.create({
   infoText: {
-    paddingHorizontal: 20,
+    paddingHorizontal: 5,
     paddingBottom: 10,
   },
 });

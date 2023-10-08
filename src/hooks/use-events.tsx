@@ -87,7 +87,7 @@ const useEvents = (severityFilter: string | null, boardId: string | null) => {
         handleError();
       }
     },
-    [selectedDate, settings, severityFilter],
+    [selectedDate, settings, severityFilter, decryptedBoardId],
   );
 
   React.useEffect(() => {
@@ -113,8 +113,6 @@ const useEvents = (severityFilter: string | null, boardId: string | null) => {
       ];
     const endAtValue = firstEvent?.timestamp || '';
 
-    console.log(endAtValue);
-
     if (severityFilter && Object.values(eventsData[severityFilter as Severity]).length) {
       fetchEvents(severity as Severity, endAtValue);
     } else {
@@ -123,8 +121,17 @@ const useEvents = (severityFilter: string | null, boardId: string | null) => {
   };
 
   const handleDateNavigation = (daysToAdd: number) => {
+    const currentDate = new Date();
     const newDate = new Date(selectedDate);
-    newDate.setDate(selectedDate.getDate() + daysToAdd);
+
+    // Calculate the new date by adding the specified number of days
+    newDate.setDate(newDate.getDate() + daysToAdd);
+
+    if (currentDate < newDate) {
+      // The new date is in the future, don't update it
+      return;
+    }
+
     setSelectedDate(newDate);
   };
 

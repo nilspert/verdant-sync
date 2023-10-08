@@ -1,5 +1,6 @@
-// themes/defaultStyles.js
+// Default styles used in app
 import { StyleSheet } from 'react-native';
+import { theme } from './theme';
 
 const defaultStyles = StyleSheet.create({
   // Screen related default styles
@@ -51,6 +52,13 @@ const defaultStyles = StyleSheet.create({
     fontSize: 14,
     marginBottom: 10,
   },
+
+  // List related styles
+  highlightedLeftBorder: {
+    borderLeftWidth: 6,
+    borderLeftColor: theme.colors.primary,
+  },
 });
 
+// Export defaultStyles
 export default defaultStyles;
