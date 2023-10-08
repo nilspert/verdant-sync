@@ -1,6 +1,6 @@
 # VerdantSync
 
-**VerdantSync** is a React Native application designed for managing and monitoring IoT (Internet of Things) devices. It connects with boards using the [Verdant Sync IoT](https://github.com/nilspert/verdant-sync-iot) platform.
+**VerdantSync** is a React Native application designed for managing and monitoring IoT (Internet of Things) devices that are using [VerdantSync IoT](https://github.com/nilspert/verdant-sync-iot) project.
 
 ## Key Features
 
