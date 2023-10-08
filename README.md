@@ -42,10 +42,13 @@ The build process is streamlined with Expo Application Services (EAS).
 Store environment variables as secrets in Expo Application Services (EAS) for builds.
 
 1. Import secrets from `.env.development`:
+
 ```
    eas secret:push --scope project --env-file .env.development
 ```
+
 2. Verify secrets:
+
 ```
    eas secret:list
 ```
@@ -57,4 +60,3 @@ Initiate the build using `yarn build`. This generates an APK available in the Ex
 ## License
 
 This project is open-source and is licensed under the [MIT License](LICENSE).
-

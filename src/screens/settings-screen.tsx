@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
+import { SafeAreaView, StyleSheet, Text } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../types/types';
 import defaultStyles from '../assets/themes/default-styles';
@@ -9,6 +9,7 @@ import SettingsList from '../components/lists/settings-list';
 import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
 import { useModal } from '../hooks/use-modal';
 import SignOutModal from '../components/common/sign-out-modal';
+import useAuthentication from '../hooks/use-authentication';
 
 type SettingsScreenProps = {
   navigation: StackNavigationProp<RootStackParamList, 'Settings'>;
@@ -35,6 +36,7 @@ const SETTINGS: SettingsListItem[] = [
 
 const SettingsScreen: React.FC<SettingsScreenProps> = ({ navigation }) => {
   const { isVisible, showModal, hideModal } = useModal();
+  const { user } = useAuthentication();
 
   const handleOnNavigate = (navPath: string) => {
     navigation.navigate(navPath);
@@ -46,6 +48,9 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({ navigation }) => {
         title={'Settings'}
         subtitle={'Manage your account and security with user settings and authorized devices'}
       />
+
+      <Text style={styles.loggedInText}>Logged in as {user && user.email}</Text>
+
       <SettingsList settingsListData={SETTINGS} onNavigate={handleOnNavigate} />
 
       <Button mode="contained" onPress={showModal}>
@@ -60,6 +65,10 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  loggedInText: {
+    fontWeight: 'bold',
+    marginBottom: 20,
   },
 });
 
