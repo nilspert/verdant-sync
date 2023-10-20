@@ -5,13 +5,13 @@ import defaultStyles from '../../assets/themes/default-styles';
 import InfoMessage from '../common/info-message';
 import Separator from '../common/separator';
 import useEvents from '../../hooks/use-events';
-import { Board, Event, Severity } from '../../types/types';
+import { Device, Event, Severity } from '../../types/types';
 import EventItem from '../events/event-item';
 import EventListHeader from '../events/event-list-header';
 import ListFooter from './list-footer';
 
 interface EventsListProps {
-  filteredBoard: Board;
+  filteredDevice: Device;
 }
 
 const windowHeight = Dimensions.get('window').height;
@@ -28,11 +28,11 @@ const RenderListFooter = (loading: boolean, showEndReached: boolean) => {
   return <ListFooter loading={loading} showEndReached={showEndReached} />;
 };
 
-const EventsList: React.FC<EventsListProps> = ({ filteredBoard }) => {
+const EventsList: React.FC<EventsListProps> = ({ filteredDevice }) => {
   const [onEndReachedCalled, setOnEndReachedCalled] = React.useState(false);
   const [filterSeverity, setFilterSeverity] = React.useState<Severity>('INFO' as Severity);
   const { eventsData, loadingEventsData, handleLoadMore, selectedDate, handleDateNavigation } =
-    useEvents(filterSeverity, filteredBoard.macAddress);
+    useEvents(filterSeverity, filteredDevice.macAddress);
 
   const filteredEvents = Object.values(eventsData[filterSeverity]);
 

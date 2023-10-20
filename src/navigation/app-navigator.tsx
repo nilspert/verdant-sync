@@ -16,7 +16,7 @@ import CustomNavigationBar from '../components/navigation/custom-navigation-bar'
 import { theme } from '../assets/themes/theme';
 import { StyleSheet } from 'react-native';
 import TabBarIcon, { TabBarIconProps } from '../components/navigation/tab-bar-icon';
-import BoardViewSelectorScreen from '../screens/board-view-selector-sreen';
+import DeviceViewSelectorScreen from '../screens/device-view-selector-sreen';
 import TabBarLabel, { TabBarLabelProps } from '../components/navigation/tab-bar-label';
 
 type RootTabParamList = {
@@ -27,7 +27,7 @@ type RootTabParamList = {
 
 type RootStackParamList = {
   DevicesLanding: undefined;
-  BoardInfo: undefined;
+  DeviceInfo: undefined;
   SettingsLanding: undefined;
   UserSettings: undefined;
   AuthorizedDevices: undefined;
@@ -64,7 +64,7 @@ const AppNavigator: React.FC = () => {
           gestureDirection: 'horizontal',
           cardStyle: { backgroundColor: '#EEEEEE' },
           headerShown: false,
-          tabBarHideOnKeyboard: true,
+          tabBarHideOnKeydevice: true,
           tabBarStyle: { backgroundColor: theme.colors.primary },
           tabBarActiveTintColor: '#F7F7F7',
           tabBarInactiveTintColor: '#CCCCCC',
@@ -111,9 +111,9 @@ const HomeStackScreen: React.FC = () => {
         component={HomeScreen}
       />
       <Stack.Screen
-        name="BoardInfo"
-        options={{ title: 'Board info', ...customTransition }}
-        component={BoardViewSelectorScreen}
+        name="DeviceInfo"
+        options={{ title: 'Device info', ...customTransition }}
+        component={DeviceViewSelectorScreen}
       />
     </Stack.Navigator>
   );

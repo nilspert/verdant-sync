@@ -1,50 +1,50 @@
 import React from 'react';
 import { NODE_PATHS, QueryOptions, fetchFromDatabase } from '../services/firebase-utils';
 import useAuthentication from './use-authentication';
-import { Board, Device } from '../types/types';
+import { Device, AuthorizedDevice } from '../types/types';
 
-interface FilteredBoardsProps {
-  filteredBoardsData: { [key: string]: Board };
-  loadingBoardsData: boolean;
-  authorizedDevicesData: { [key: string]: Device };
+interface FilteredDevicesProps {
+  filteredDevicesData: { [key: string]: Device };
+  loadingDevicesData: boolean;
+  authorizedDevicesData: { [key: string]: AuthorizedDevice };
   loadingAuthorizedDevicesData: boolean;
 }
 
-const useFilteredBoards = (): FilteredBoardsProps => {
+const useFilteredDevices = (): FilteredDevicesProps => {
   const { user, settings } = useAuthentication();
-  const [boardsData, setBoardsData] = React.useState<{ [key: string]: Board }>({});
-  const [loadingBoardsData, setLoadingBoardsData] = React.useState(true);
+  const [devicesData, setDevicesData] = React.useState<{ [key: string]: Device }>({});
+  const [loadingDevicesData, setLoadingDevicesData] = React.useState(true);
   const [authorizedDevicesData, setAuthorizedDevicesData] = React.useState<{
-    [key: string]: Device;
+    [key: string]: AuthorizedDevice;
   }>({});
   const [loadingAuthorizedDevicesData, setLoadingAuthorizedDevicesData] = React.useState(true);
 
-  const getFilteredBoardsData = () => {
-    return Object.keys(boardsData).reduce((result: { [key: string]: Board }, boardKey) => {
+  const getFilteredDevicesData = () => {
+    return Object.keys(devicesData).reduce((result: { [key: string]: Device }, deviceKey) => {
       if (
-        !authorizedDevicesData[boardKey] ||
-        (authorizedDevicesData[boardKey] && authorizedDevicesData[boardKey].authorized)
+        !authorizedDevicesData[deviceKey] ||
+        (authorizedDevicesData[deviceKey] && authorizedDevicesData[deviceKey].authorized)
       ) {
-        result[boardKey] = boardsData[boardKey];
+        result[deviceKey] = devicesData[deviceKey];
       }
       return result;
     }, {});
   };
 
-  const fetchBoardsData = React.useCallback(() => {
-    setLoadingBoardsData(true);
+  const fetchDevicesData = React.useCallback(() => {
+    setLoadingDevicesData(true);
 
     const onDataFetched = (data: any) => {
       if (data == null) {
-        setBoardsData({});
+        setDevicesData({});
       } else {
-        setBoardsData(data);
+        setDevicesData(data);
       }
-      setLoadingBoardsData(false);
+      setLoadingDevicesData(false);
     };
 
     const onError = () => {
-      setLoadingBoardsData(false);
+      setLoadingDevicesData(false);
     };
 
     const queryOptions = {
@@ -52,7 +52,7 @@ const useFilteredBoards = (): FilteredBoardsProps => {
       equalToValue: settings?.ssid,
     } as QueryOptions;
 
-    const unsubscribe = fetchFromDatabase(NODE_PATHS.BOARDS, onDataFetched, onError, queryOptions);
+    const unsubscribe = fetchFromDatabase(NODE_PATHS.DEVICES, onDataFetched, onError, queryOptions);
 
     return () => {
       unsubscribe();
@@ -94,9 +94,9 @@ const useFilteredBoards = (): FilteredBoardsProps => {
 
   React.useEffect(() => {
     if (user && settings != null) {
-      fetchBoardsData();
+      fetchDevicesData();
     }
-  }, [user, settings, fetchBoardsData]);
+  }, [user, settings, fetchDevicesData]);
 
   React.useEffect(() => {
     if (user && settings && settings != null) {
@@ -104,14 +104,14 @@ const useFilteredBoards = (): FilteredBoardsProps => {
     }
   }, [user, settings, fetchAuthorizedDevicesData]);
 
-  const filteredBoardsData = getFilteredBoardsData();
+  const filteredDevicesData = getFilteredDevicesData();
 
   return {
-    filteredBoardsData,
-    loadingBoardsData,
+    filteredDevicesData,
+    loadingDevicesData,
     authorizedDevicesData,
     loadingAuthorizedDevicesData,
   };
 };
 
-export default useFilteredBoards;
+export default useFilteredDevices;

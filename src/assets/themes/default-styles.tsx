@@ -1,7 +1,14 @@
-// Default styles used in app
+/**
+ * File: default-styles.tsx
+ * Author: Joonas Nislin
+ * Date: 27.8.2023
+ * Description: This file contains Default styles used in app.
+ */
+
 import { StyleSheet } from 'react-native';
 import { theme } from './theme';
 
+// Create defaultStyles style object with react-native StyleSheet
 const defaultStyles = StyleSheet.create({
   // Screen related default styles
   container: {

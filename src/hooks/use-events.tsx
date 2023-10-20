@@ -18,10 +18,10 @@ const defaultLoadingEventsData = {
   ERROR: true,
 };
 
-const useEvents = (severityFilter: string | null, boardId: string | null) => {
+const useEvents = (severityFilter: string | null, deviceId: string | null) => {
   const { settings } = useAuthentication();
   const [selectedDate, setSelectedDate] = React.useState<Date>(new Date());
-  const decryptedBoardId = decryptData(String(boardId));
+  const decryptedDeviceId = decryptData(String(deviceId));
 
   const [eventsData, setEventsData] = React.useState<{
     [severity: string]: { [key: string]: Event };
@@ -42,7 +42,7 @@ const useEvents = (severityFilter: string | null, boardId: string | null) => {
         .toString()
         .padStart(2, '0')}/${selectedDate.getDate().toString().padStart(2, '0')}`;
 
-      const pathWithFilter = `${NODE_PATHS.EVENTS}/${severity}/${formattedDate}/${settings.ssid}/${decryptedBoardId}`;
+      const pathWithFilter = `${NODE_PATHS.EVENTS}/${severity}/${formattedDate}/${settings.ssid}/${decryptedDeviceId}`;
 
       const queryOptions: QueryOptions = {
         orderByChildValue: 'timestamp',
@@ -87,7 +87,7 @@ const useEvents = (severityFilter: string | null, boardId: string | null) => {
         handleError();
       }
     },
-    [selectedDate, settings, severityFilter, decryptedBoardId],
+    [selectedDate, settings, severityFilter, decryptedDeviceId],
   );
 
   React.useEffect(() => {

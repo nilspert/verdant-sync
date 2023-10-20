@@ -116,7 +116,7 @@ export const removeFromDatabase = (nodePath: string) => {
 };
 
 export const NODE_PATHS = {
-  BOARDS: '/boards',
+  DEVICES: '/devices',
   AUTHORIZED_DEVICES: '/authorized_devices',
   USERS: '/users',
   EVENTS: '/events',

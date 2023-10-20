@@ -1,6 +1,6 @@
 import { ParamListBase } from '@react-navigation/native';
 
-export interface Board {
+export interface Device {
   name: string;
   firmware: string;
   ip: string;
@@ -15,7 +15,7 @@ export interface Board {
   latest_watering_time: string;
 }
 
-export interface Device {
+export interface AuthorizedDevice {
   authorized: boolean;
   ssid: string;
   macAddress: string;

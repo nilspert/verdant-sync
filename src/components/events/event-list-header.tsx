@@ -1,3 +1,12 @@
+/**
+ * File: event-list-header.tsx
+ * Author: Joonas Nislin
+ * Date: 27.8.2023
+ * Description: This file contains component definition for EventListHeader.
+ * This component is used to set filter for events that are being viewed.
+ * Filters include date and severity
+ */
+
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
@@ -6,6 +15,7 @@ import { Severity } from '../../types/types';
 import Separator from '../common/separator';
 import { theme } from '../../assets/themes/theme';
 
+// EventListHeader props
 interface EventListHeaderProps {
   filterSeverity: Severity | null;
   setFilterSeverity: React.Dispatch<React.SetStateAction<Severity>>;
@@ -14,6 +24,7 @@ interface EventListHeaderProps {
   handleDateNavigation: (daysToAdd: number) => void;
 }
 
+// Component definition
 const EventListHeader: React.FC<EventListHeaderProps> = ({
   filterSeverity,
   setFilterSeverity,
@@ -21,7 +32,7 @@ const EventListHeader: React.FC<EventListHeaderProps> = ({
   selectedDate,
   handleDateNavigation,
 }) => {
-  const disableForward = selectedDate.getDate() >= new Date().getDate();
+  const disableForward = selectedDate.getDate() >= new Date().getDate(); // Disable future date filters
   return (
     <View>
       <View style={styles.dateNavigationContainer}>
@@ -60,6 +71,7 @@ const EventListHeader: React.FC<EventListHeaderProps> = ({
   );
 };
 
+// EventListHeader styles
 const styles = StyleSheet.create({
   filterButtonsContainer: {
     flexDirection: 'row',
@@ -88,4 +100,5 @@ const styles = StyleSheet.create({
   },
 });
 
+// Export EventListHeader component
 export default EventListHeader;

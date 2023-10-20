@@ -3,8 +3,8 @@ import { View, SafeAreaView } from 'react-native';
 import styles from '../assets/themes/default-styles';
 import { RootStackParamList } from '../types/types';
 import { StackNavigationProp } from '@react-navigation/stack';
-import useFilteredBoards from '../hooks/use-filtered-boards';
-import BoardsList from '../components/lists/boards-list';
+import useFilteredDevices from '../hooks/use-filtered-devices';
+import DevicesList from '../components/lists/devices-list';
 import ScreenTitle from '../components/common/screen-title';
 import LoadingSpinner from '../components/common/loading-spinner';
 
@@ -13,13 +13,13 @@ type HomeScreenProps = {
 };
 
 const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
-  const { filteredBoardsData, loadingBoardsData } = useFilteredBoards();
+  const { filteredDevicesData, loadingDevicesData } = useFilteredDevices();
 
   const handleOnNavigate = (navPath: string, macAddress: string) => {
     navigation.navigate(navPath, { id: macAddress });
   };
 
-  if (loadingBoardsData) {
+  if (loadingDevicesData) {
     return <LoadingSpinner />;
   }
 
@@ -27,7 +27,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
     <SafeAreaView>
       <View style={styles.screenContainer}>
         <ScreenTitle title={'Devices'} />
-        <BoardsList filteredBoardsData={filteredBoardsData} onNavigate={handleOnNavigate} />
+        <DevicesList filteredDevicesData={filteredDevicesData} onNavigate={handleOnNavigate} />
       </View>
     </SafeAreaView>
   );

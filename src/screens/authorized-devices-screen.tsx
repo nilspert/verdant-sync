@@ -4,7 +4,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../types/types';
 import DeviceList from '../components/lists/device-list';
 import InfoMessage from '../components/common/info-message';
-import useFilteredBoards from '../hooks/use-filtered-boards';
+import useFilteredDevices from '../hooks/use-filtered-devices';
 import defaultStyles from '../assets/themes/default-styles';
 import LoadingSpinner from '../components/common/loading-spinner';
 
@@ -13,7 +13,7 @@ type AuthorizedDevicesScreenProps = {
 };
 
 const AuthorizedDevicesScreen: React.FC<AuthorizedDevicesScreenProps> = () => {
-  const { authorizedDevicesData, loadingAuthorizedDevicesData } = useFilteredBoards();
+  const { authorizedDevicesData, loadingAuthorizedDevicesData } = useFilteredDevices();
 
   if (loadingAuthorizedDevicesData) {
     return <LoadingSpinner />;

@@ -1,34 +1,46 @@
+/**
+ * File: devices-list.tsx
+ * Author: Joonas Nislin
+ * Date: 27.8.2023
+ * Description: This file contains component definition for DevicesList.
+ * Used to display VerdantSync IoT devices in Devices view.
+ */
+
 import React from 'react';
 import { FlatList, View, TouchableWithoutFeedback, StyleSheet, Dimensions } from 'react-native';
-import { Board } from '../../types/types';
+import { Device } from '../../types/types';
 import DecryptedText from '../common/decrypted-text';
 import InfoMessage from '../common/info-message';
 import Separator from '../common/separator';
 import defaultStyles from '../../assets/themes/default-styles';
 import { Text } from 'react-native-paper';
 
+// Calculate scrollViewHeight so that the flatlist does not get overlapped by bottom navigation
 const windowHeight = Dimensions.get('window').height;
-const eventListHeaderHeight = 220;
-const flatListHeight = windowHeight - eventListHeaderHeight;
+const devicesListHeaderHeight = 220;
+const flatListHeight = windowHeight - devicesListHeaderHeight;
 
-type BoardsListProps = {
-  filteredBoardsData: { [key: string]: Board };
+// DevicesList props
+type DevicesListProps = {
+  filteredDevicesData: { [key: string]: Device };
   onNavigate: (navPath: string, macAddress: string) => void;
 };
 
+// Function to render separator component horizontally
 const RenderSeparator = () => {
   return <Separator mode="horizontal" />;
 };
 
-const BoardsList: React.FC<BoardsListProps> = ({
-  filteredBoardsData,
+// Component definition
+const DevicesList: React.FC<DevicesListProps> = ({
+  filteredDevicesData,
   onNavigate,
-}: BoardsListProps) => {
+}: DevicesListProps) => {
   return (
     <FlatList
       nestedScrollEnabled
       style={styles.flatList}
-      data={Object.values(filteredBoardsData)}
+      data={Object.values(filteredDevicesData)}
       keyExtractor={(item) => item.ip}
       ItemSeparatorComponent={RenderSeparator}
       ListEmptyComponent={
@@ -38,7 +50,7 @@ const BoardsList: React.FC<BoardsListProps> = ({
         </View>
       }
       renderItem={({ item }) => (
-        <TouchableWithoutFeedback onPress={() => onNavigate('BoardInfo', item.macAddress)}>
+        <TouchableWithoutFeedback onPress={() => onNavigate('DeviceInfo', item.macAddress)}>
           <View
             style={[
               defaultStyles.contentContainer,
@@ -55,6 +67,7 @@ const BoardsList: React.FC<BoardsListProps> = ({
   );
 };
 
+// DevicesList styles
 const styles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
@@ -72,4 +85,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BoardsList;
+// Export DevicesList component
+export default DevicesList;

@@ -1,6 +1,12 @@
-// Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-// Check .env.example for environment variables
+/**
+ * File: config.ts
+ * Author: Joonas Nislin
+ * Date: 14.8.2023
+ * Description: This file contains Firebase configuration.
+ * For Firebase JS SDK v7.20.0 and later, measurementId is optional
+ * Check .env.example for environment variables
+ */
+
 const firebaseConfig = {
   apiKey: process.env.API_KEY,
   authDomain: process.env.AUTH_DOMAIN,

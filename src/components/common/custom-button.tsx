@@ -1,14 +1,24 @@
+/**
+ * File: custom-button.tsx
+ * Author: Joonas Nislin
+ * Date: 27.8.2023
+ * Description: This file contains component definition for CustomButton.
+ * Custom button component that has app styles
+ */
+
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
 import { theme } from '../../assets/themes/theme';
 
+// CustomButton props
 interface CustomButtonProps {
   mode: 'contained' | 'outlined' | 'contained-tonal';
   onPress: () => void;
   label: string;
 }
 
+// Component definition
 const CustomButton: React.FC<CustomButtonProps> = ({ mode, onPress, label }) => {
   const buttonStyle = mode === 'contained' ? styles.button : styles.outlinedButton;
 
@@ -19,6 +29,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({ mode, onPress, label }) => 
   );
 };
 
+// CustomButton styles
 const styles = StyleSheet.create({
   button: {
     marginVertical: 10,
@@ -32,4 +43,5 @@ const styles = StyleSheet.create({
   },
 });
 
+// Export CustomButton component
 export default CustomButton;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
-import { Device } from '../../types/types';
+import { AuthorizedDevice } from '../../types/types';
 import { updateInDatabase } from '../../services/firebase-utils';
 import { decryptData } from '../../utils/crypto-utils';
 import DecryptedText from '../common/decrypted-text';
@@ -9,7 +9,7 @@ import defaultStyles from '../../assets/themes/default-styles';
 import Toast from '../common/toast';
 
 type DeviceListProps = {
-  authorizedDevicesData: { [key: string]: Device };
+  authorizedDevicesData: { [key: string]: AuthorizedDevice };
 };
 
 const DeviceList: React.FC<DeviceListProps> = ({ authorizedDevicesData }) => {

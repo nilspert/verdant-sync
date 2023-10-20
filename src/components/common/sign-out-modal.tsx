@@ -1,3 +1,11 @@
+/**
+ * File: sign-out-modal.tsx
+ * Author: Joonas Nislin
+ * Date: 8.10.2023
+ * Description: This file contains component definition for SignOutModal.
+ * When user wants to logout, this modal is displayed to verify the action
+ */
+
 import React from 'react';
 import { Modal, Portal, Text } from 'react-native-paper';
 import { signOut } from 'firebase/auth';
@@ -5,16 +13,19 @@ import CustomButton from '../common/custom-button';
 import { getAuth } from 'firebase/auth';
 import { StyleSheet } from 'react-native';
 
+// SignOutModal props
 interface Props {
   isVisible: boolean;
   hideModal: () => void;
 }
 
+// Get current firebase authentication instance
 const auth = getAuth();
 
-export default function SignOutModal({ isVisible, hideModal }: Props) {
+// Component definition
+const SignOutModal = ({ isVisible, hideModal }: Props) => {
   const exitApp = () => {
-    signOut(auth);
+    signOut(auth); // Sign out current user
   };
 
   return (
@@ -26,8 +37,9 @@ export default function SignOutModal({ isVisible, hideModal }: Props) {
       </Modal>
     </Portal>
   );
-}
+};
 
+// SignOutModal styles
 const styles = StyleSheet.create({
   modalContent: {
     backgroundColor: 'white',
@@ -39,3 +51,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
 });
+
+// Export SignOutModal component
+export default SignOutModal;

@@ -1,12 +1,23 @@
+/**
+ * File: app-title.tsx
+ * Author: Joonas Nislin
+ * Date: 27.8.2023
+ * Description: This file contains component definition for AppTitle.
+ * App title component is used in navigation bar, auth form and welcome screen
+ * Displays app title and sprout icon
+ */
+
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
 import { theme } from '../../assets/themes/theme';
 
+// AppTitle props
 interface AppTitleProps {
   content: 'light-content' | 'dark-content';
 }
 
+// Component definition
 const AppTitle: React.FC<AppTitleProps> = ({ content }) => {
   const color = content === 'light-content' ? '#ffffff' : theme.colors.primary;
   return (
@@ -17,6 +28,7 @@ const AppTitle: React.FC<AppTitleProps> = ({ content }) => {
   );
 };
 
+// AppTitle styles
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
@@ -29,4 +41,5 @@ const styles = StyleSheet.create({
   },
 });
 
+// Export AppTitle component
 export default AppTitle;

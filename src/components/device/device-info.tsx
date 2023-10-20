@@ -1,6 +1,14 @@
+/**
+ * File: device-info.tsx
+ * Author: Joonas Nislin
+ * Date: 23.9.2023
+ * Description: This file contains component definition for DeviceInfo.
+ * Wrapper component for device-info-item.tsx which displays VerdantSync IoT device properties like Temperature and Humidity
+ */
+
 import React, { ReactNode } from 'react';
 import { View, ScrollView, StyleSheet, Dimensions } from 'react-native';
-import { Board } from '../../types/types';
+import { Device } from '../../types/types';
 import { theme } from '../../assets/themes/theme';
 import {
   addHpa,
@@ -9,61 +17,66 @@ import {
   getSoilMoisture,
   getWaterTankLevel,
 } from '../../utils/helpers';
-import BoardInfoItem from './board-info-item';
+import DeviceInfoItem from './device-info-item';
 
+// Calculate scrollViewHeight so that the flatlist does not get overlapped by bottom navigation
 const windowHeight = Dimensions.get('window').height;
 const eventListHeaderHeight = 190;
 const scrollViewHeight = windowHeight - eventListHeaderHeight;
 
+// DeviceInfo props
 interface Props {
-  filteredBoard: Board;
+  filteredDevice: Device;
 }
 
+// RenderRow props
 interface RowProps {
   children: ReactNode;
 }
 
+// Function for rendering row
 const RenderRow = ({ children }: RowProps) => {
   return <View style={styles.row}>{children}</View>;
 };
 
-const BoardInfo: React.FC<Props> = ({ filteredBoard }) => {
+// Component definition
+const DeviceInfo: React.FC<Props> = ({ filteredDevice }) => {
   return (
     <ScrollView style={styles.scrollView}>
       <RenderRow>
-        <BoardInfoItem
-          boardProperty={String(filteredBoard?.water_tank_level)}
+        <DeviceInfoItem
+          deviceProperty={String(filteredDevice?.water_tank_level)}
           propertyLabel="Water tank level"
           formatter={getWaterTankLevel}
         />
-        <BoardInfoItem
-          boardProperty={String(filteredBoard?.soil_moisture)}
+        <DeviceInfoItem
+          deviceProperty={String(filteredDevice?.soil_moisture)}
           propertyLabel="Soil moisture"
           formatter={getSoilMoisture}
         />
       </RenderRow>
       <RenderRow>
-        <BoardInfoItem
-          boardProperty={String(filteredBoard?.luminosity)}
+        <DeviceInfoItem
+          deviceProperty={String(filteredDevice?.luminosity)}
           propertyLabel="Luminosity"
           formatter={getBrightness}
         />
       </RenderRow>
       <RenderRow>
-        <BoardInfoItem
-          boardProperty={String(filteredBoard?.temperature)}
+        <DeviceInfoItem
+          deviceProperty={String(filteredDevice?.temperature)}
           propertyLabel="Air temperature"
           iconName="temperature-celsius"
         />
-        <BoardInfoItem
-          boardProperty={String(filteredBoard?.humidity)}
+        <DeviceInfoItem
+          deviceProperty={String(filteredDevice?.humidity)}
           propertyLabel="Air humidity"
           formatter={addPercentage}
         />
       </RenderRow>
       <RenderRow>
-        <BoardInfoItem
-          boardProperty={String(filteredBoard?.air_pressure)}
+        <DeviceInfoItem
+          deviceProperty={String(filteredDevice?.air_pressure)}
           propertyLabel="Air pressure"
           formatter={addHpa}
         />
@@ -72,6 +85,7 @@ const BoardInfo: React.FC<Props> = ({ filteredBoard }) => {
   );
 };
 
+// Styles for DeviceInfo
 const styles = StyleSheet.create({
   scrollViewContent: {
     padding: 16,
@@ -115,4 +129,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BoardInfo;
+// Export DeviceInfo component
+export default DeviceInfo;

@@ -1,3 +1,12 @@
+/**
+ * File: device-info-item.tsx
+ * Author: Joonas Nislin
+ * Date: 8.10.2023
+ * Description: This file contains component definition for DeviceInfoItem.
+ * Component used in device-info.tsx for displaying VerdantSync IoT device properties eq. Temperature, Soil moisture, Water tank level
+ * Uses DecryptedText component to display value of the device property
+ */
+
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { theme } from '../../assets/themes/theme';
@@ -5,12 +14,13 @@ import DecryptedText from '../common/decrypted-text';
 import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
 import Separator from '../common/separator';
 
+// Type definition for property iconName
 // Add more icons from MaterialCommunityIcons if needed
 type Icon = 'temperature-celsius';
 
-// BoardInfoItem props
+// DeviceInfoItem props
 interface Props {
-  boardProperty: string;
+  deviceProperty: string;
   propertyLabel: string;
   formatter?: (data: string) => string;
   iconName?: Icon;
@@ -21,9 +31,9 @@ const RenderSeparator = () => {
   return <Separator mode="horizontal" />;
 };
 
-// Component used in board-info.tsx for displaying Board properties eq. Temperature, Soil moisture, Water tank level
-const BoardInfoItem: React.FC<Props> = ({
-  boardProperty,
+// Component definition
+const DeviceInfoItem: React.FC<Props> = ({
+  deviceProperty,
   propertyLabel,
   formatter,
   iconName,
@@ -35,7 +45,7 @@ const BoardInfoItem: React.FC<Props> = ({
           <DecryptedText
             style={styles.iconItemValue}
             formatter={formatter}
-            encryptedHex={boardProperty}
+            encryptedHex={deviceProperty}
           />
           {iconName && <Icon name={iconName} color={theme.colors.primary} size={36} />}
         </View>
@@ -46,6 +56,7 @@ const BoardInfoItem: React.FC<Props> = ({
   );
 };
 
+// Styles for DeviceInfoItem
 const styles = StyleSheet.create({
   column: {
     flex: 1,
@@ -78,5 +89,5 @@ const styles = StyleSheet.create({
   },
 });
 
-// Export BoardInfoItem component
-export default BoardInfoItem;
+// Export DeviceInfoItem component
+export default DeviceInfoItem;

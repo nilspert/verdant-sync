@@ -1,3 +1,12 @@
+/**
+ * File: auth-form.tsx
+ * Author: Joonas Nislin
+ * Date: 27.8.2023
+ * Description: This file contains component definition for AuthForm.
+ * This component is used to sign up and sign in user
+ * Uses react-hook-form for form handling and validation
+ */
+
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { TextInput } from 'react-native-paper';
@@ -7,21 +16,25 @@ import AppTitle from '../common/app-title';
 import CustomButton from '../common/custom-button';
 import defaultStyles from '../../assets/themes/default-styles';
 
+// AuthForm props
 interface Props {
   buttonText: string;
   onSubmit: (data: FormData) => void;
 }
 
+// Form fields
 export interface FormData {
   email: string;
   password: string;
 }
 
+// Component definition
 const AuthForm = ({ buttonText, onSubmit }: Props) => {
+  // Include react-hook-form methods
   const { control, handleSubmit, formState } = useForm<FormData>();
 
   const handleFormSubmit = async (data: FormData) => {
-    onSubmit(data);
+    onSubmit(data); // Submit form data
   };
 
   return (
@@ -82,6 +95,7 @@ const AuthForm = ({ buttonText, onSubmit }: Props) => {
   );
 };
 
+// AuthForm styles
 const styles = StyleSheet.create({
   formWrapper: {
     width: '100%',
@@ -89,4 +103,5 @@ const styles = StyleSheet.create({
   },
 });
 
+// Export AuthForm component
 export default AuthForm;
