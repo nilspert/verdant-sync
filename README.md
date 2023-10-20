@@ -1,6 +1,6 @@
 # VerdantSync
 
-**VerdantSync** is a React Native application designed for managing and monitoring IoT (Internet of Things) devices that are using [VerdantSync IoT](https://github.com/nilspert/verdant-sync-iot) project.
+**VerdantSync** is a React Native application designed for managing and monitoring IoT (Internet of Things) devices that are using [VerdantSync IoT](https://github.com/nilspert/verdant-sync-iot) plant irrigation and monitoring project.
 
 ## Key Features
 
@@ -18,18 +18,18 @@
 1. Clone this repository to your local machine.
 2. Install dependencies using `npm install` or `yarn install`.
 3. Configure your Firebase project and obtain the necessary details.
-4. Duplicate `.env.example` as `.env.development`.
-5. Fill in the Firebase configuration details obtained from Firebase.
-6. Update `.env.development` with your Firebase configuration.
-7. Start the app with `npm start` or `yarn start`.
+4. Copy `.env.example` as `.env.development` and fill in the Firebase configuration details
+5. Update `.env.development` with your Firebase configuration.
+6. Start the app with `npm start` or `yarn start`.
 
 ## Dependencies
 
-- React Native
-- Firebase
-- React Navigation
-- React Native Paper
-- React Native AES Crypto
+- [React Native](https://reactnative.dev/)
+- [Firebase](https://firebase.google.com/)
+- [React Navigation](https://reactnavigation.org/)
+- [React Native Paper](https://callstack.github.io/react-native-paper/)
+- [React Native AES Crypto](https://www.npmjs.com/package/react-native-aes-crypto)
+- [React Hook Form](https://react-hook-form.com/)
 
 ## Building the App
 
