@@ -2,7 +2,7 @@ import React from 'react';
 import { View, SafeAreaView } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../types/types';
-import DeviceList from '../components/lists/device-list';
+import AuthorizedDevicesList from '../components/lists/authorized-devices-list';
 import InfoMessage from '../components/common/info-message';
 import useFilteredDevices from '../hooks/use-filtered-devices';
 import defaultStyles from '../assets/themes/default-styles';
@@ -27,7 +27,7 @@ const AuthorizedDevicesScreen: React.FC<AuthorizedDevicesScreenProps> = () => {
           <InfoMessage message="No devices found with current user settings. Please update your settings." />
         </View>
       )}
-      <DeviceList authorizedDevicesData={authorizedDevicesData} />
+      <AuthorizedDevicesList authorizedDevicesData={authorizedDevicesData} />
     </SafeAreaView>
   );
 };

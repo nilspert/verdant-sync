@@ -13,6 +13,7 @@ export interface Device {
   luminosity: string;
   water_tank_level: string;
   latest_watering_time: string;
+  latest_sensor_reading_time: string;
 }
 
 export interface AuthorizedDevice {

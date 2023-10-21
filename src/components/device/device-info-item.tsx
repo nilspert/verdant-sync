@@ -16,7 +16,7 @@ import Separator from '../common/separator';
 
 // Type definition for property iconName
 // Add more icons from MaterialCommunityIcons if needed
-type Icon = 'temperature-celsius';
+type Icon = 'temperature-celsius' | 'antenna' | 'watering-can-outline';
 
 // DeviceInfoItem props
 interface Props {

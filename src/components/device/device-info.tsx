@@ -7,7 +7,7 @@
  */
 
 import React, { ReactNode } from 'react';
-import { View, ScrollView, StyleSheet, Dimensions } from 'react-native';
+import { View, ScrollView, StyleSheet, Dimensions, Text } from 'react-native';
 import { Device } from '../../types/types';
 import { theme } from '../../assets/themes/theme';
 import {
@@ -16,8 +16,11 @@ import {
   getBrightness,
   getSoilMoisture,
   getWaterTankLevel,
+  formatEpochTime,
 } from '../../utils/helpers';
 import DeviceInfoItem from './device-info-item';
+import Separator from '../common/separator';
+import { decryptData } from '../../utils/crypto-utils';
 
 // Calculate scrollViewHeight so that the flatlist does not get overlapped by bottom navigation
 const windowHeight = Dimensions.get('window').height;
@@ -41,8 +44,31 @@ const RenderRow = ({ children }: RowProps) => {
 
 // Component definition
 const DeviceInfo: React.FC<Props> = ({ filteredDevice }) => {
+  const getFormattedTime = (timeValue: string): string => {
+    return formatEpochTime(String(`${decryptData(timeValue)}`));
+  };
+
   return (
     <ScrollView style={styles.scrollView}>
+      <RenderRow>
+        <View style={styles.column}>
+          <Text style={styles.recentActivityLabel}>Recent activity</Text>
+          <Separator mode="horizontal" />
+          <View style={styles.recentActivityRow}>
+            <Text>Sensor reading time</Text>
+            <Text style={styles.recentActivityValue}>
+              {getFormattedTime(String(filteredDevice?.latest_sensor_reading_time))}
+            </Text>
+          </View>
+          <Separator mode="horizontal" />
+          <View style={styles.recentActivityRow}>
+            <Text>Last watering time</Text>
+            <Text style={styles.recentActivityValue}>
+              {getFormattedTime(String(filteredDevice?.latest_watering_time))}
+            </Text>
+          </View>
+        </View>
+      </RenderRow>
       <RenderRow>
         <DeviceInfoItem
           deviceProperty={String(filteredDevice?.water_tank_level)}
@@ -117,9 +143,19 @@ const styles = StyleSheet.create({
     gap: 10,
     marginBottom: 5,
   },
-  iconItemValue: {
+  recentActivityLabel: {
     fontSize: 26,
     color: theme.colors.primaryContainer,
+    paddingBottom: 5,
+  },
+  recentActivityRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginVertical: 10,
+  },
+  recentActivityValue: {
+    color: theme.colors.primaryContainer,
+    fontWeight: 'bold',
   },
   itemLabel: {
     marginTop: 5,

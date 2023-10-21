@@ -12,7 +12,7 @@ type DeviceListProps = {
   authorizedDevicesData: { [key: string]: AuthorizedDevice };
 };
 
-const DeviceList: React.FC<DeviceListProps> = ({ authorizedDevicesData }) => {
+const AuthorizedDevicesList: React.FC<DeviceListProps> = ({ authorizedDevicesData }) => {
   const updateDeviceAuthorizationStatus = (macAddress: string, authorized: boolean) => {
     const decryptedMacAddress = decryptData(macAddress);
     const devicePath = `/authorized_devices/${decryptedMacAddress}`;
@@ -59,4 +59,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DeviceList;
+export default AuthorizedDevicesList;
