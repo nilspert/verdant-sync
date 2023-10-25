@@ -65,13 +65,65 @@ export const getSoilMoisture = (valueStr: string): string => {
   const analogValue = parseInt(valueStr, 10);
   if (analogValue >= 900) {
     return 'Very Dry';
-  } else if (analogValue >= 700) {
+  } else if (analogValue >= 750) {
     return 'Dry';
   } else if (analogValue >= 500) {
-    return 'Moist';
-  } else if (analogValue >= 300) {
+    return 'Optimal';
+  } else if (analogValue >= 250) {
     return 'Wet';
   } else {
     return 'Very Wet';
+  }
+};
+
+export const percentageToFloat = (percentageString: string): number => {
+  const trimmedString = percentageString.trim();
+
+  if (trimmedString.endsWith('%')) {
+    const numericValue = parseFloat(trimmedString);
+
+    if (!isNaN(numericValue)) {
+      return numericValue / 100.0;
+    }
+  }
+
+  return 0;
+};
+
+export const valueToPercentage = (value: string, includeRemaining: boolean = false): string => {
+  const numericValue = parseFloat(value);
+
+  if (isNaN(numericValue)) {
+    return 'Invalid Input';
+  }
+
+  if (numericValue < 0) {
+    value = '0';
+  } else if (numericValue > 1024) {
+    value = '1024';
+  }
+
+  const percentage = (numericValue / 1024) * 100;
+
+  if (includeRemaining) {
+    return percentage.toFixed(2) + '%';
+  } else {
+    const remainingPercentage = 100 - percentage;
+    return remainingPercentage.toFixed(2) + '%';
+  }
+};
+
+export const getColorBasedOnPercentage = (percentageString: string): string => {
+  const percentage = parseFloat(percentageString);
+  if (isNaN(percentage)) {
+    return 'rgb(255, 0, 0)'; // Red
+  }
+  if (percentage >= 0 && percentage < 100) {
+    // Calculate the color based on the percentage between red and green
+    const redValue = 255 - (percentage / 100) * 255;
+    const greenValue = (percentage / 100) * 255;
+    return `rgb(${redValue.toFixed(0)}, ${greenValue.toFixed(0)}, 0)`;
+  } else {
+    return 'rgb(0, 255, 0)'; // Green
   }
 };

@@ -9,10 +9,12 @@
 
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { ProgressBar } from 'react-native-paper';
 import { theme } from '../../assets/themes/theme';
 import DecryptedText from '../common/decrypted-text';
 import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
 import Separator from '../common/separator';
+import { getColorBasedOnPercentage, percentageToFloat } from '../../utils/helpers';
 
 // Type definition for property iconName
 // Add more icons from MaterialCommunityIcons if needed
@@ -24,6 +26,8 @@ interface Props {
   propertyLabel: string;
   formatter?: (data: string) => string;
   iconName?: Icon;
+  displayValueAsProgressBar?: boolean;
+  progressValue?: string;
 }
 
 // Function to return Separator component in horizantal mode
@@ -37,7 +41,10 @@ const DeviceInfoItem: React.FC<Props> = ({
   propertyLabel,
   formatter,
   iconName,
+  displayValueAsProgressBar = false,
+  progressValue,
 }: Props) => {
+  const colorBasedOnPercentage = getColorBasedOnPercentage(String(progressValue));
   return (
     <View style={styles.column}>
       <View style={styles.itemContainer}>
@@ -51,6 +58,15 @@ const DeviceInfoItem: React.FC<Props> = ({
         </View>
         {RenderSeparator()}
         <Text style={styles.itemLabel}>{propertyLabel}</Text>
+        {displayValueAsProgressBar && (
+          <View style={styles.progressBarWrapper}>
+            <ProgressBar
+              style={styles.progressBar}
+              progress={percentageToFloat(String(progressValue))}
+              color={colorBasedOnPercentage}
+            />
+          </View>
+        )}
       </View>
     </View>
   );
@@ -86,6 +102,15 @@ const styles = StyleSheet.create({
   },
   itemLabel: {
     marginTop: 5,
+  },
+  progressBarWrapper: {
+    display: 'flex',
+    height: 10,
+    width: '100%',
+  },
+  progressBar: {
+    height: 10,
+    width: '100%',
   },
 });
 
