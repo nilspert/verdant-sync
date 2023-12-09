@@ -1,3 +1,10 @@
+/**
+ * File: welcome-screen.tsx
+ * Author: Joonas Nislin
+ * Date: 27.8.2023
+ * Description: This file contains component definition for WelcomeScreen.
+ * UI component for Welcome view, acts as "landing page" for the application
+ */
 import { StackScreenProps } from '@react-navigation/stack';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';

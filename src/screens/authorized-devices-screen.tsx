@@ -1,3 +1,10 @@
+/**
+ * File: authorized-devices-screen.tsx
+ * Author: Joonas Nislin
+ * Date: 27.8.2023
+ * Description: This file contains component definition for AuthorizedDevicesScreen.
+ * UI component for Authorized devices view
+ */
 import React from 'react';
 import { View, SafeAreaView } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -8,13 +15,17 @@ import useFilteredDevices from '../hooks/use-filtered-devices';
 import defaultStyles from '../assets/themes/default-styles';
 import LoadingSpinner from '../components/common/loading-spinner';
 
+// AuthorizedDevicesScreen props
 type AuthorizedDevicesScreenProps = {
   navigation: StackNavigationProp<RootStackParamList, 'AuthorizedDevices'>;
 };
 
+// Component definition
 const AuthorizedDevicesScreen: React.FC<AuthorizedDevicesScreenProps> = () => {
+  // Use authorizedDevicesData from useFilteredDevices hook
   const { authorizedDevicesData, loadingAuthorizedDevicesData } = useFilteredDevices();
 
+  // If still fetching authorizedDevicesData, display loading spinner
   if (loadingAuthorizedDevicesData) {
     return <LoadingSpinner />;
   }
@@ -32,4 +43,5 @@ const AuthorizedDevicesScreen: React.FC<AuthorizedDevicesScreenProps> = () => {
   );
 };
 
+// Export AuthorizedDevicesScreen component
 export default AuthorizedDevicesScreen;

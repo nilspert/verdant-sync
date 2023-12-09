@@ -1,3 +1,10 @@
+/**
+ * File: user-settings-screen.tsx
+ * Author: Joonas Nislin
+ * Date: 27.8.2023
+ * Description: This file contains component definition for UserSettingsScreen.
+ * UI component for UserSettings view
+ */
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
 import { SafeAreaView, ScrollView, View } from 'react-native';
@@ -14,9 +21,11 @@ type UserSettingsScreenProps = {
   navigation: StackNavigationProp<RootStackParamList, 'UserSettings'>;
 };
 
+// Component definition
 const UserSettingsScreen: React.FC<UserSettingsScreenProps> = () => {
   const { user, settings } = useAuthentication();
 
+  // Function for saving changes to user settings
   const onSubmit = async (data: FormData) => {
     try {
       if (user == null) {
@@ -46,4 +55,5 @@ const UserSettingsScreen: React.FC<UserSettingsScreenProps> = () => {
   );
 };
 
+// Export UserSettingsScreen view
 export default UserSettingsScreen;

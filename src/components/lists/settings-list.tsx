@@ -1,3 +1,10 @@
+/**
+ * File: settings-list.tsx
+ * Author: Joonas Nislin
+ * Date: 27.8.2023
+ * Description: This file contains component definition for SettingsList.
+ * This component is used to display list of user settings
+ */
 import React from 'react';
 import { FlatList, Text, TouchableWithoutFeedback, View, StyleSheet } from 'react-native';
 import defaultStyles from '../../assets/themes/default-styles';
@@ -5,15 +12,18 @@ import { SettingsListItem } from '../../screens/settings-screen';
 import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
 import Separator from '../common/separator';
 
+// SettingsList props
 type SettingsListProps = {
   settingsListData: SettingsListItem[];
   onNavigate: (navPath: string) => void;
 };
 
+// Function to render separator component horizontally
 const RenderSeparator = () => {
   return <Separator mode="horizontal" />;
 };
 
+// Component definition
 const SettingsList: React.FC<SettingsListProps> = ({
   settingsListData,
   onNavigate,
@@ -37,6 +47,7 @@ const SettingsList: React.FC<SettingsListProps> = ({
   );
 };
 
+// SettingsList styles
 const styles = StyleSheet.create({
   container: {
     paddingVertical: 0,
@@ -48,4 +59,5 @@ const styles = StyleSheet.create({
   },
 });
 
+// Export SettingsList component
 export default SettingsList;

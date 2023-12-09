@@ -1,3 +1,9 @@
+/**
+ * File: firebase-utils.tsx
+ * Author: Joonas Nislin
+ * Date: 18.8.2023
+ * Description: This file contains type definitions used in application
+ */
 import { ParamListBase } from '@react-navigation/native';
 
 export interface Device {

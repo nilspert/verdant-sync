@@ -1,3 +1,10 @@
+/**
+ * File: sign-in-screen.tsx
+ * Author: Joonas Nislin
+ * Date: 27.8.2023
+ * Description: This file contains component definition for SignInScreen.
+ * UI component for SignIn view
+ */
 import React from 'react';
 import { View } from 'react-native';
 import { getAuth, signInWithEmailAndPassword, AuthError } from 'firebase/auth';
@@ -9,7 +16,9 @@ import { StackScreenProps } from '@react-navigation/stack';
 const auth = getAuth();
 type SignInScreenProps = StackScreenProps<any, 'SignIn'>;
 
+// Component definition
 const SignInScreen: React.FC<SignInScreenProps> = () => {
+  // Function for handling sign in with simple apiError based Toast for user
   const handleEmailPasswordSignIn = async ({ email, password }: FormData) => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
@@ -42,4 +51,5 @@ const SignInScreen: React.FC<SignInScreenProps> = () => {
   );
 };
 
+// Export SignInScreen component
 export default SignInScreen;

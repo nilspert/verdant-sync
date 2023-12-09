@@ -1,3 +1,10 @@
+/**
+ * File: device-view-selector-screen.tsx
+ * Author: Joonas Nislin
+ * Date: 20.10.2023
+ * Description: This file contains component definition for DeviceViewSelectorScreen.
+ * UI component for device view which handles showing of device info or device events
+ */
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
@@ -9,16 +16,21 @@ import { useRoute } from '@react-navigation/native';
 import LoadingSpinner from '../components/common/loading-spinner';
 import { Button } from 'react-native-paper';
 
+// DeviceViewSelectorScreen props
 type DeviceViewSelectorScreenProps = {
   navigation: StackNavigationProp<RootStackParamList, 'DeviceViewSelector'>;
 };
 
+// Route props
 interface RouteProps {
   id: string;
 }
 
+// Component definition
 const DeviceViewSelectorScreen: React.FC<DeviceViewSelectorScreenProps> = () => {
-  const [activeScreen, setActiveScreen] = React.useState('DeviceInfo'); // Initial active screen
+  // State variable for active screen
+  const [activeScreen, setActiveScreen] = React.useState('DeviceInfo');
+  // Get id of device from route
   const route = useRoute();
   const { id } = route.params as RouteProps;
   const { filteredDevicesData, loadingDevicesData } = useFilteredDevices();
@@ -40,6 +52,7 @@ const DeviceViewSelectorScreen: React.FC<DeviceViewSelectorScreenProps> = () => 
     return <LoadingSpinner />;
   }
 
+  // Function for rendering ui component based on activeScreen
   const renderScreen = () => {
     switch (activeScreen) {
       case 'DeviceInfo':
@@ -74,6 +87,7 @@ const DeviceViewSelectorScreen: React.FC<DeviceViewSelectorScreenProps> = () => 
   );
 };
 
+// DeviceViewSelectorScreen styles
 const styles = StyleSheet.create({
   tabContainer: {
     flexDirection: 'row',
@@ -84,4 +98,5 @@ const styles = StyleSheet.create({
   },
 });
 
+// Export DeviceViewSelectorScreen screen
 export default DeviceViewSelectorScreen;

@@ -1,3 +1,10 @@
+/**
+ * File: app-navigator.tsx
+ * Author: Joonas Nislin
+ * Date: 18.8.2023
+ * Description: This file contains component definition for appNavigator.
+ * Application navigator which handles main and sub views for authorized user
+ */
 import React from 'react';
 import { BottomTabHeaderProps, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
@@ -15,16 +22,18 @@ import AuthorizedDevicesScreen from '../screens/authorized-devices-screen';
 import CustomNavigationBar from '../components/navigation/custom-navigation-bar';
 import { theme } from '../assets/themes/theme';
 import { StyleSheet } from 'react-native';
-import TabBarIcon, { TabBarIconProps } from '../components/navigation/tab-bar-icon';
+import { TabBarIcon, TabBarIconProps } from '../components/navigation/tab-bar-icon';
 import DeviceViewSelectorScreen from '../screens/device-view-selector-sreen';
 import TabBarLabel, { TabBarLabelProps } from '../components/navigation/tab-bar-label';
 
+// Type definition for RootTabParamList
 type RootTabParamList = {
   Devices: undefined;
   Notifications: undefined;
   Settings: undefined;
 };
 
+// Type definition for RootStackParamList
 type RootStackParamList = {
   DevicesLanding: undefined;
   DeviceInfo: undefined;
@@ -33,27 +42,33 @@ type RootStackParamList = {
   AuthorizedDevices: undefined;
 };
 
+// Access tab and stack navigators
 const Tab = createBottomTabNavigator<RootTabParamList>();
 const Stack = createStackNavigator<RootStackParamList>();
 
+// Custom transition animation that removes header and card animations
 const customTransition = {
   ...TransitionSpecs.TransitionIOSSpec,
   headerStyleInterpolator: HeaderStyleInterpolators.forNoAnimation,
   cardStyleInterpolator: CardStyleInterpolators.forNoAnimation,
 };
 
+// Function for rendering custom navigation bar
 const RenderNavigationBar = (props: StackHeaderProps | BottomTabHeaderProps) => {
   return <CustomNavigationBar {...props} />;
 };
 
+// Function for rendering tab bar icon
 const getTabBarIcon = ({ color, size, focused, iconName }: TabBarIconProps) => {
   return <TabBarIcon iconName={iconName} color={color} size={size} focused={focused} />;
 };
 
+// Function for rendering tab bar label
 const getTabBarLabel = ({ color, focused, label }: TabBarLabelProps) => {
   return <TabBarLabel color={color} focused={focused} label={label} />;
 };
 
+// Component definition for AppNavigator
 const AppNavigator: React.FC = () => {
   return (
     <NavigationContainer>
@@ -93,6 +108,7 @@ const AppNavigator: React.FC = () => {
   );
 };
 
+// Component definition for HomeStackScreen
 const HomeStackScreen: React.FC = () => {
   return (
     <Stack.Navigator
@@ -119,6 +135,7 @@ const HomeStackScreen: React.FC = () => {
   );
 };
 
+// Component definition for SettingsStackScreen
 const SettingsStackScreen: React.FC = () => {
   return (
     <Stack.Navigator
@@ -160,9 +177,11 @@ const SettingsStackScreen: React.FC = () => {
   );
 };
 
+// AppNavigator styles
 const styles = StyleSheet.create({
   stackScreenHeader: { backgroundColor: theme.colors.primary },
   headerTitle: { color: '#F7F7F7' },
 });
 
+// Export AppNavigator component
 export default AppNavigator;

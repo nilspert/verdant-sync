@@ -1,3 +1,10 @@
+/**
+ * File: custom-navigation-bar.tsx
+ * Author: Joonas Nislin
+ * Date: 27.8.2023
+ * Description: This file contains component definition for CustomNavigationBar.
+ * This component is used to display navigation bar on main views (Devices & Settings)
+ */
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Appbar, useTheme } from 'react-native-paper';
@@ -7,10 +14,14 @@ import { BottomTabHeaderProps } from '@react-navigation/bottom-tabs';
 import SignOutModal from '../common/sign-out-modal';
 import { useModal } from '../../hooks/use-modal';
 
+// Function for rendering AppTitle component
 const renderTitle = () => <AppTitle content="light-content" />;
 
+// Component definition
 export default function CustomNavigationBar({}: StackHeaderProps | BottomTabHeaderProps) {
-  const theme = useTheme(); // Access the theme
+  // Access the theme
+  const theme = useTheme();
+  // Call useModal hook
   const { isVisible, showModal, hideModal } = useModal();
 
   return (
@@ -22,9 +33,10 @@ export default function CustomNavigationBar({}: StackHeaderProps | BottomTabHead
   );
 }
 
+// CustomNavigationBar styles
 const styles = StyleSheet.create({
   header: {
-    elevation: 0, // Remove shadow
+    elevation: 0,
   },
   modalContent: {
     backgroundColor: 'white',

@@ -32,7 +32,10 @@ const EventListHeader: React.FC<EventListHeaderProps> = ({
   selectedDate,
   handleDateNavigation,
 }) => {
-  const disableForward = selectedDate.getDate() >= new Date().getDate(); // Disable future date filters
+  const currentDate = selectedDate.getDate();
+  // // Disable future date filters
+  const disableForward =
+    currentDate === new Date().getDate() && currentDate >= new Date().getDate();
   return (
     <View>
       <View style={styles.dateNavigationContainer}>

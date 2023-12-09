@@ -17,7 +17,7 @@ import {
   getSoilMoisture,
   getWaterTankLevel,
   formatEpochTime,
-  valueToPercentage,
+  getSoilMoistureLevel,
 } from '../../utils/helpers';
 import DeviceInfoItem from './device-info-item';
 import Separator from '../common/separator';
@@ -83,7 +83,10 @@ const DeviceInfo: React.FC<Props> = ({ filteredDevice }) => {
           propertyLabel="Soil moisture"
           formatter={getSoilMoisture}
           displayValueAsProgressBar
-          progressValue={valueToPercentage(String(decryptData(filteredDevice?.soil_moisture)))}
+          progressValue={getSoilMoistureLevel(
+            String(decryptData(filteredDevice?.soil_moisture)),
+            false,
+          )}
         />
       </RenderRow>
       <RenderRow>

@@ -1,9 +1,18 @@
+/**
+ * File: helpers.tsx
+ * Author: Joonas Nislin
+ * Date: 14.8.2023
+ * Description: This file contains utility functions that are used in application
+ */
+
 import { EMAIL_REGEX } from './regex';
 
+// Function that tests if email is valid
 export const isValidEmail = (email: string) => {
   return EMAIL_REGEX.test(email);
 };
 
+// Converts epochTime to dd/mm/yyyy hh:MM:ss format
 export const formatEpochTime = (epochTime: string) => {
   const epochTimeInt = parseInt(epochTime, 10); // Convert the string to an integer
   const date = new Date(epochTimeInt * 1000); // Convert to milliseconds
@@ -17,6 +26,9 @@ export const formatEpochTime = (epochTime: string) => {
   return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
 };
 
+// Function for getting water tank level as percentages
+// min max distance should be changed to match water tank
+// Prototype used one liter measuring cup with a diameter of 12.5 cm
 export const getWaterTankLevel = (distanceStr: string): string => {
   const distance = parseFloat(distanceStr);
 
@@ -38,14 +50,17 @@ export const getWaterTankLevel = (distanceStr: string): string => {
   return `${percentage.toFixed(0)} %`;
 };
 
+// Adds percentage sign to string
 export const addPercentage = (valueStr: string): string => {
   return `${valueStr} %`;
 };
 
+// Adds unit hPa (hectopascal) in the end of string
 export const addHpa = (valueStr: string): string => {
   return `${valueStr} hPa`;
 };
 
+// Gets brightness value based on string 0 - 1024
 export const getBrightness = (valueStr: string): string => {
   const analogValue = parseInt(valueStr, 10);
   if (analogValue >= 900) {
@@ -61,6 +76,7 @@ export const getBrightness = (valueStr: string): string => {
   }
 };
 
+// Gets soil moisture value based on string 0 - 1024
 export const getSoilMoisture = (valueStr: string): string => {
   const analogValue = parseInt(valueStr, 10);
   if (analogValue >= 900) {
@@ -76,6 +92,7 @@ export const getSoilMoisture = (valueStr: string): string => {
   }
 };
 
+// Changes percentage string to float
 export const percentageToFloat = (percentageString: string): number => {
   const trimmedString = percentageString.trim();
 
@@ -90,20 +107,23 @@ export const percentageToFloat = (percentageString: string): number => {
   return 0;
 };
 
-export const valueToPercentage = (value: string, includeRemaining: boolean = false): string => {
+// Changes value to percentage
+export const getSoilMoistureLevel = (value: string, includeRemaining: boolean = false): string => {
+  // minValue = optimal
+  // maxValue = very dry
+  const minValue = 500;
+  const maxValue = 1024;
+  const valueRange = maxValue - minValue;
+
+  // Change value to float
   const numericValue = parseFloat(value);
 
   if (isNaN(numericValue)) {
     return 'Invalid Input';
   }
 
-  if (numericValue < 0) {
-    value = '0';
-  } else if (numericValue > 1024) {
-    value = '1024';
-  }
-
-  const percentage = (numericValue / 1024) * 100;
+  // Calculate percentage between 0-100 based on received value, minValue and valueRange
+  const percentage = ((numericValue - minValue) / valueRange) * 100;
 
   if (includeRemaining) {
     return percentage.toFixed(2) + '%';
@@ -113,11 +133,13 @@ export const valueToPercentage = (value: string, includeRemaining: boolean = fal
   }
 };
 
+// Gets color based on percentage red = 0, green = 100
 export const getColorBasedOnPercentage = (percentageString: string): string => {
   const percentage = parseFloat(percentageString);
   if (isNaN(percentage)) {
     return 'rgb(255, 0, 0)'; // Red
   }
+
   if (percentage >= 0 && percentage < 100) {
     // Calculate the color based on the percentage between red and green
     const redValue = 255 - (percentage / 100) * 255;

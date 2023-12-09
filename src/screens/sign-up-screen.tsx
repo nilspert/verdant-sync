@@ -1,3 +1,10 @@
+/**
+ * File: sign-up-screen.tsx
+ * Author: Joonas Nislin
+ * Date: 27.8.2023
+ * Description: This file contains component definition for SignUpScreen.
+ * UI component for SignUp view
+ */
 import React from 'react';
 import { View } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';

@@ -1,3 +1,10 @@
+/**
+ * File: settings-screen.tsx
+ * Author: Joonas Nislin
+ * Date: 27.8.2023
+ * Description: This file contains component definition for SettingsScreen.
+ * UI component for Settings view
+ */
 import React from 'react';
 import { SafeAreaView, StyleSheet, Text } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -11,33 +18,38 @@ import { useModal } from '../hooks/use-modal';
 import SignOutModal from '../components/common/sign-out-modal';
 import useAuthentication from '../hooks/use-authentication';
 
+// SettingsScreen props
 type SettingsScreenProps = {
   navigation: StackNavigationProp<RootStackParamList, 'Settings'>;
 };
 
+// Type definition for SettingsListItem
 export interface SettingsListItem {
   id: string;
   title: string;
   navPath: string;
 }
 
+// Sub views for settings
 const SETTINGS: SettingsListItem[] = [
   {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+    id: '0',
     title: 'User settings',
     navPath: 'UserSettings',
   },
   {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+    id: '1',
     title: 'Authorized devices',
     navPath: 'AuthorizedDevices',
   },
 ];
 
+// Component definition
 const SettingsScreen: React.FC<SettingsScreenProps> = ({ navigation }) => {
   const { isVisible, showModal, hideModal } = useModal();
   const { user } = useAuthentication();
 
+  // Function for handling navigation to sub views
   const handleOnNavigate = (navPath: string) => {
     navigation.navigate(navPath);
   };
@@ -62,6 +74,7 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({ navigation }) => {
   );
 };
 
+// Styles for SettingsScreen
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -72,4 +85,5 @@ const styles = StyleSheet.create({
   },
 });
 
+// Export SettingsScreen view
 export default SettingsScreen;
